@@ -1,36 +1,33 @@
-🎁 Giftly - Full-Stack Gift E-commerce Platform
-A modern, high-performance e-commerce solution for selling and buying gifts. This platform features a seamless user experience, real-time order tracking, Google authentication, and a robust administrative dashboard for total control.
+📚 E-Library - Digital Book Management and Sales Platform
+A modern, high-performance platform for managing and selling digital books. This platform features a seamless user experience, real-time cart management, JWT authentication, and Stripe payments.
 
-🚀 Tech StackLayerTechnologyFrontendNext.js (React)BackendNode.js / ExpressState ManagementZustandData FetchingAxiosAuthenticationGoogle OAuth (NextAuth.js)UI ComponentsSwiper.js (Sliders), React-Toastify (Notifications)StylingTailwind CSS / CSS Modules
+🚀 Tech StackLayerTechnologyFrontendNext.js (React)BackendNode.js / ExpressState ManagementZustandData FetchingAxiosAuthenticationJWT (Custom API)PaymentsStripeUI ComponentsSwiper.js (Sliders), React-Toastify (Notifications)StylingTailwind CSS / CSS Modules
 
 ✨ Key Features
 👤 User Experience
-Google Authentication: Secure and fast one-click login/signup.
+JWT Authentication: Secure login/signup with email and password.
 
-Product Discovery: Interactive product sliders and galleries powered by Swiper.js.
+Book Discovery: Interactive book sliders and galleries powered by Swiper.js.
 
-Order Tracking: Users can monitor their order status from "Pending" to "Delivered" in real-time.
+Cart Management: Add, remove, and view books in cart with real-time updates.
 
 Responsive Design: Fully optimized for mobile, tablet, and desktop views.
 
-Instant Feedback: Smooth UI notifications using React-Toastify for actions like "Added to Cart" or "Order Placed."
+Instant Feedback: Smooth UI notifications using React-Toastify for actions like "Added to Cart" or "Payment Success."
 
-🛡️ Admin Dashboard (The Control Center)
-Inventory Management: Create, update, and delete gift items easily.
+Stripe Payments: Secure payment processing for book purchases.
 
-Order Overview: Manage incoming orders and update delivery statuses.
 
-Analytics: Quick insights into sales and user activity.
-
-User Management: Overview of registered customers and their history.
 
 📦 Major Libraries Used
 Next.js: For Server-Side Rendering (SSR) and optimized performance.
 
-Zustand: A lightweight, fast state-management solution to handle the shopping cart and user sessions.
+Zustand: A lightweight, fast state-management solution to handle the cart and user sessions.
 
 Axios: For handling API requests between the frontend and Node.js backend.
 
-Swiper: To create high-end touch sliders for featured gifts.
+Swiper: To create high-end touch sliders for featured books.
 
 React-Toastify: For elegant, non-blocking toast notifications.
+
+Stripe: For secure payment processing.

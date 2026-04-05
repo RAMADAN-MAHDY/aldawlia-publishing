@@ -1,35 +1,59 @@
 import { create } from 'zustand';
 import api from '@/app/api';
 
-export const useAdminAuthStore = create((set) => ({
-  admin: null,
-  loading: true,
+export const useAdminAuthStore = create((set) => {
+    // Initial state check for localStorage
+    const getInitialAdmin = () => {
+        if (typeof window === 'undefined') return null;
+        try {
+            const userData = localStorage.getItem('adminUser');
+            return userData ? JSON.parse(userData) : null;
+        } catch {
+            return null;
+        }
+    };
 
-  // تحقق من صلاحية الأدمن
-  verifyAdmin: async () => {
-    set({ loading: true });
-    try {
-      // نتحقق من صلاحية الأدمن فقط
-      const res = await api.post('/auth/verifyadmin', null, { withCredentials: true });
-
-      // إذا نجحت العملية، نعتبر المستخدم أدمن
-      set({
-        admin: { role: 'admin' }, // ممكن تضيفي اسم أو أي بيانات متاحة من الـ res
+    return {
+        admin: getInitialAdmin(),
         loading: false,
-      });
-    } catch (error) {
-      console.error("verifyAdmin error:", error.response?.data || error.message);
-      set({ admin: null, loading: false });
-    }
-  },
 
-  // تسجيل خروج الأدمن
-  adminLogout: async () => {
-    try {
-      await api.post('/auth/logout', { client: 'web' }, { withCredentials: true });
-    } finally {
-      set({ admin: null });
-      window.location.href = '/admin/login';
-    }
-  },
-}));
+        // تسجيل دخول الأدمن
+        adminLogin: async (email, password) => {
+            set({ loading: true });
+            try {
+                const res = await api.post('/auth/login', { email, password });
+                const { token, user, role } = res.data.data;
+
+                // Determine the admin data (prefer user object if exists, else role)
+                const adminData = user || { role: role || 'admin' };
+
+                if (adminData.role !== 'admin') {
+                    set({ loading: false });
+                    return { success: false, message: "صلاحيات غير كافية - هذا الحساب ليس أدمن" };
+                }
+
+                localStorage.setItem('jwtToken', token);
+                localStorage.setItem('adminUser', JSON.stringify(adminData));
+                set({ admin: adminData, loading: false });
+                return { success: true };
+            } catch (error) {
+                set({ admin: null, loading: false });
+                return { success: false, message: error.response?.data?.message || "فشل تسجيل الدخول" };
+            }
+        },
+
+        // تسجيل خروج الأدمن
+        adminLogout: async () => {
+            try {
+                await api.post('/auth/logout');
+            } catch (error) {
+                console.error("Logout failed:", error);
+            } finally {
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('adminUser');
+                set({ admin: null });
+                window.location.href = '/admin/login';
+            }
+        }
+    };
+});

@@ -1,0 +1,201 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ShoppingCart, Search, Phone, Info, Heart } from "lucide-react";
+import { useAuthStore } from "@/app/(library)/store/useAuthStore";
+import { useCartStore } from "@/app/(library)/store/useCartStore";
+import { useFavoritesStore } from "@/app/(library)/store/useFavoritesStore";
+import api from "@/app/api"; // استيراد ملف api.jsx للتعامل مع الطلبات
+import Image from "next/image";
+
+const Navbar = () => {
+  const router = useRouter();
+  const { user, isAuthenticated, logout } = useAuthStore();
+  const { cart } = useCartStore();
+  const { favorites, fetchFavorites } = useFavoritesStore();
+
+  useEffect(() => {
+    if (isAuthenticated) fetchFavorites();
+  }, [isAuthenticated, fetchFavorites]);
+
+  // 🔹 تصحيح: لو cart.items هي المصفوفة، نستخدم طولها أو نجمع الكميات
+  const cartItemsCount = cart?.items?.length || cart?.length || 0;
+
+  const [keyword, setKeyword] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  // 🔹 Autocomplete
+  useEffect(() => {
+    if (!keyword.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        const response = await api.get('/files', { params: { q: keyword, limit: 5 } });
+        const results = response.data.data || [];
+        setSuggestions(results);
+      } catch (err) {
+        console.error("Autocomplete error:", err);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [keyword]);
+
+  const handleSearch = () => {
+    if (!keyword.trim()) return;
+    setSuggestions([]);
+    router.push(`/search?keyword=${keyword}`);
+  };
+
+  return (
+    <nav className="bg-[#f2f2f2] sticky top-0 z-50 px-4 h-20 flex items-center" dir="rtl">
+      <div className="flex justify-between items-center w-full max-w-7xl mx-auto gap-2 md:gap-4">
+
+        {/* جهة اليمين */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* حالة المستخدم المسجل */}
+          {isAuthenticated && (
+            <div className="flex items-center gap-4">
+              <div className="hidden lg:flex items-center gap-4 border-l ml-4 pl-4 border-gray-300">
+                <Link href="/about" className="text-gray-700 font-bold hover:text-[#C5A059] flex items-center gap-1 transition-colors">
+                  <Info size={18} />
+                  <span className="text-sm">عن الموقع</span>
+                </Link>
+                <a
+                  href="https://wa.me/12017059422?text=مرحبًا%20،%20أود%20التواصل%20معكم"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 font-bold hover:text-[#C5A059] flex items-center gap-1 transition-colors"
+                >
+                  <Phone size={18} />
+                  <span className="text-sm">تواصل معنا</span>
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={logout}
+                  className="hidden md:block bg-sky-900 text-white px-4 py-2 rounded-xl font-bold hover:bg-[#C5A059] transition-all"
+                >
+                  تسجيل خروج
+                </button>
+                <span className="font-bold text-sm md:text-base whitespace-nowrap">مرحبا، {user?.username || user?.name}</span>
+              </div>
+            </div>
+          )}
+
+          {/* حالة الزائر */}
+          {!isAuthenticated && (
+            <div className="hidden md:flex items-center gap-3">
+              <Link href="/about" className="px-3 py-2 text-gray-700 font-bold hover:text-[#C5A059] flex items-center gap-1 transition-colors">
+                <Info size={18} />
+                <span>عن الموقع</span>
+              </Link>
+              <a
+                href="https://wa.me/12017059422?text=مرحبًا%20،%20أود%20التواصل%20معكم"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 font-bold hover:text-[#C5A059] flex items-center gap-1 transition-colors"
+              >
+                <Phone size={18} />
+                <span className="text-sm">تواصل معنا</span>
+              </a>
+              <span className="text-gray-300 mx-1">|</span>
+              <Link href="/login" className="px-4 py-2 rounded-xl text-gray-700 font-bold hover:bg-gray-200 transition-all">
+                تسجيل دخول
+              </Link>
+              <Link href="/register" className="bg-sky-900 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-sky-900 transition-all">
+                إنشاء حساب
+              </Link>
+            </div>
+          )}
+
+          {/* أيقونات السلة والمفضلة */}
+          <div className="hidden md:flex gap-4 border-r pr-4 border-gray-300">
+            <Link href="/favorites" className="relative flex flex-col items-center group hover:scale-105 transition-all duration-300">
+              <Heart size={22} className="group-hover:text-[#C5A059] transition-colors text-sky-900" />
+              <span className="text-xs font-bold group-hover:text-[#C5A059] transition-colors text-sky-900">المفضلة</span>
+              {favorites?.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                  {favorites.length}
+                </span>
+              )}
+            </Link>
+
+            <Link href="/cart" className="relative flex flex-col items-center group hover:scale-105 transition-all duration-300">
+              <ShoppingCart size={22} className="group-hover:text-[#C5A059] transition-colors text-sky-900" />
+              <span className="text-xs font-bold group-hover:text-[#C5A059] transition-colors text-sky-900">السلة</span>
+              {cartItemsCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#C5A059] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+                  {cartItemsCount}
+                </span>
+              )}
+            </Link>
+          </div>
+        </div>
+
+        {/* جهة اليسار: البحث + اللوجو */}
+        <div className="flex items-center justify-center gap-2">
+          <div className="relative flex-1 min-w-[120px] sm:min-w-[200px] md:max-w-[350px]">
+            <input
+              type="text"
+              value={keyword}
+              onChange={(e) => {
+                const v = e.target.value;
+                setKeyword(v);
+                if (!v.trim()) setSuggestions([]);
+              }}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              placeholder="بحث ...."
+              className="w-full bg-[#e8e8e8] rounded-2xl py-2 pr-10 pl-4 text-sm outline-none"
+            />
+            <Search
+              onClick={handleSearch}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
+              size={18}
+            />
+
+            {suggestions.length > 0 && (
+              <div className="absolute top-full mt-1 w-full bg-white rounded-xl shadow z-[1000]">
+                {suggestions.map((item) => (
+                  <div
+                    key={item._id}
+                    onClick={() => {
+                      router.push(`/book/${item._id}`);
+                      setKeyword("");
+                      setSuggestions([]);
+                    }}
+                    className="px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
+                  >
+                    {item.title || item.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link
+            href="/"
+            className="flex-shrink-0 flex items-end justify-center h-full pt-12"
+          >
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={100}
+              height={100}
+              priority
+              className="object-contain"
+            />
+          </Link>
+        </div>
+
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

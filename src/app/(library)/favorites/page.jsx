@@ -86,9 +86,16 @@ const FavoritesPage = () => {
                       <h3 className="font-bold text-sky-900 text-[13px] md:text-sm line-clamp-2 leading-tight uppercase">
                         {book?.name || book?.title || "اسم غير متوفر"}
                       </h3>
-                      <p className="text-amber-600 font-black text-sm mt-2">
-                        {(book?.price)?.toLocaleString() || 0} ج.م
-                      </p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <p className="text-amber-600 font-black text-sm">
+                          {((book?.isOnSale && book?.discountPrice) ? book.discountPrice : (book?.price || 0)) / 100} ج.م
+                        </p>
+                        {book?.isOnSale && (
+                          <span className="text-gray-400 line-through text-[10px]">
+                            {((book?.price) / 100).toLocaleString()} ج.م
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <div className="flex items-center justify-between mt-auto">

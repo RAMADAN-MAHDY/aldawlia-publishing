@@ -117,7 +117,7 @@ const [redirectionUrl, setRedirectionUrl] = useState("");
         }
         try {
             await addToCart(id);
-            toast.success("تمت الإضافة للسلة بنجاح");
+           
         } catch (err) {
             toast.error(err.response?.data?.message || "فشل إضافة المنتج للسلة");
         }

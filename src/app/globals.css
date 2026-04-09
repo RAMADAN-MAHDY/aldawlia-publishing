@@ -24,3 +24,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+html {
+  /* دي بتخلي حركة السكرول بالماوس أو اللينكات ناعمة جداً */
+  scroll-behavior: smooth;
+}

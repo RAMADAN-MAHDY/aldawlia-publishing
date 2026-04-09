@@ -23,19 +23,32 @@ export const useCartStore = create(
       },
 
       // إضافة عنصر (حسب الـ API بتاعك POST /cart/:fileId)
+     
+// إضافة عنصر مع منع التكرار
       addToCart: async (fileId) => {
+        const { cart } = get();
+        
+        // فحص ما إذا كان الكتاب موجود مسبقاً في السلة
+        const isExist = cart.items.some(item => (item.file?._id === fileId || item.file?.id === fileId));
+
+        if (isExist) {
+          toast.info("هذا الكتاب مضاف بالفعل إلى السلة");
+          return; // الخروج من الدالة ومنع الإضافة
+        }
+
         try {
           const response = await api.post(`/cart/${fileId}`, {
             quantity: 1 
           });
           set({ cart: response.data.data });
+          toast.success("تمت الإضافة للسلة");
           return response.data;
         } catch (error) {
           console.error("فشل الإضافة:", error.response?.data || error);
+          toast.error("فشل إضافة الكتاب للسلة");
           throw error;
         }
       },
-
       // حذف عنصر واحد (DELETE /cart/:fileId)
       removeFromCart: async (fileId) => {
         try {

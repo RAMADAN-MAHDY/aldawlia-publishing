@@ -9,52 +9,93 @@ const PaymentStatus = () => {
     const router = useRouter();
     const hasCalledApi = useRef(false); // لمنع استدعاء الـ API مرتين بسبب الـ StrictMode
 
-    // الحصول على المعرفات من الرابط (السيرفر بيبعت orderId لبيموب أو transactionId لسترايب)
-    const success = searchParams.get("success");
+    // الحصول على المعرفات من الرابط
+    const successParam = searchParams.get("success");
     const orderId = searchParams.get("orderId"); 
     const transactionId = searchParams.get("transactionId");
     
-    // المعرف المتوفر حالياً
-    const id = orderId || transactionId;
+    // إضافات Stripe
+    const stripePaymentIntent = searchParams.get("payment_intent");
+    const stripeStatus = searchParams.get("redirect_status");
+
+    // تحديد الحالة النهائية والمعرف
+    const isSuccess = successParam === "true" || stripeStatus === "succeeded";
+    const id = orderId || transactionId || stripePaymentIntent;
 
     useEffect(() => {
         // لو مفيش نجاح في الرابط أو مفيش ID، نرجعه للرئيسية
-        if (success !== "true" || !id) {
-            if (success === "false") toast.error("فشلت عملية الدفع، يرجى المحاولة مرة أخرى");
-            router.push("/");
-            return;
+        if (!isSuccess || !id) {
+            if (successParam === "false" || stripeStatus === "failed") {
+                toast.error("فشلت عملية الدفع، يرجى المحاولة مرة أخرى");
+            }
+            // نعطي فرصة بسيطة قبل التحويل للتأكد
+            const timeout = setTimeout(() => {
+                 if (!isSuccess || !id) router.push("/");
+            }, 2000);
+            return () => clearTimeout(timeout);
         }
 
-        const verifyPayment = async () => {
-            if (hasCalledApi.current) return;
-            hasCalledApi.current = true;
+        const verifyPayment = async (retryCount = 0) => {
+            if (hasCalledApi.current && retryCount === 0) return;
+            if (retryCount === 0) hasCalledApi.current = true;
 
             try {
                 // 1. التحقق من حالة الدفع من السيرفر (بند 4 في الوثيقة)
-                // المسار: GET /payments/:transactionId
+                // المسار: GET /payments/:id
+                // ملاحظة: قد تكون الحالة pending لأن Webhook لم يصل بعد (قد يستغرق ثانية واحدة)
+                console.log(`[Payment Verification] ID: ${id}, Attempt: ${retryCount + 1}`);
                 const { data } = await api.get(`/payments/${id}`);
-                
-                // 2. استخراج بيانات الكتاب من رد السيرفر
-                // الوثيقة بتقول البيانات بترجع فيها book يحتوي على id
-                const bookId = data.data?.book?.id || data.data?.bookId;
+                const paymentData = data.data || data;
+                const paymentStatus = paymentData.status;
 
-                toast.success("تم تأكيد الدفع بنجاح!");
+                console.log("[Payment Verification] Response:", {
+                    status: paymentStatus,
+                    bookId: paymentData.book?.id || paymentData.bookId,
+                    bookNull: paymentData.book === null,
+                    amount: paymentData.amount
+                });
 
-                // 3. التوجيه لصفحة الكتاب عشان يقدر يحمله فوراً
-                if (bookId) {
-                    router.push(`/book/${bookId}`);
+                // 2. إذا كانت الحالة pending والمحاولة الأولى، انتظر ثانية وأعد المحاولة
+                if (paymentStatus === "pending" && retryCount < 3) {
+                    console.log(`[Payment Verification] Status pending, retrying (${retryCount + 1}/3)...`);
+                    toast.info("جاري معالجة العملية عبر البوابة...");
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    return verifyPayment(retryCount + 1);
+                }
+
+                // 3. تحقق من حالة الدفع النهائية
+                if (paymentStatus === "succeeded") {
+                    // 4. استخراج بيانات الكتاب من رد السيرفر
+                    const bookId = paymentData.book?.id || paymentData.bookId;
+                    console.log("[Payment Verification] Payment succeeded! Redirecting to purchases...");
+
+                    toast.success("تم تأكيد الدفع بنجاح!");
+
+                    // 5. انتظر قليلاً لتأكد من تحديث قاعدة البيانات ثم اذهب لصفحة المشتريات
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    router.push("/my-purchases");
                 } else {
-                    router.push("/my-library"); // أو صفحة المشتريات لو الـ ID تاه
+                    console.warn(`[Payment Verification] Payment not succeeded. Status: ${paymentStatus}`);
+                    toast.warning(`حالة الدفع: ${paymentStatus}. يرجى التحقق من عمليتك.`);
+                    
+                    // اذهب لصفحة المشتريات بدلاً من الرئيسية
+                    // قد تكون العملية نجحت لكن حالة الدفع لم تتحدث بعد
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    router.push("/my-purchases");
                 }
             } catch (err) {
-                console.error("Verification Error:", err);
+                console.error("[Payment Verification] Error:", err.response?.data || err.message);
                 toast.error(err.response?.data?.message || "حدث خطأ أثناء التحقق من الدفع");
-                router.push("/");
+                
+                // في حالة الخطأ، روح لصفحة المشتريات - قد تكون العملية نجحت رغم الخطأ
+                console.log("[Payment Verification] Error occurred, redirecting to purchases...");
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                router.push("/my-purchases");
             }
         };
 
         verifyPayment();
-    }, [success, id, router]);
+    }, [isSuccess, id, router]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-white" dir="rtl">

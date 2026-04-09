@@ -25,6 +25,7 @@ const CartPage = () => {
   const [paymentProvider, setPaymentProvider] = useState("stripe");
   const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  const [redirectionUrl, setRedirectionUrl] = useState("");
 
   useEffect(() => {
     if (isAuthenticated) fetchCart();
@@ -41,8 +42,15 @@ const CartPage = () => {
       return toast.error("يرجى إدخال رقم الهاتف للمحفظة");
     }
 
+    const firstItem = cart.items[0];
+    const firstBookId = firstItem.file?._id || firstItem.file?.id;
+
+    if (!firstBookId) {
+      return toast.error("بيانات الكتاب غير مكتملة في السلة");
+    }
+
     const paymentData = {
-      bookId: cart.items[0].file?._id, 
+      bookId: firstBookId, 
       provider: paymentProvider,
       currency: 'EGP',
     };
@@ -57,9 +65,11 @@ const CartPage = () => {
         window.location.assign(data.data.paymentLink);
       } else if (paymentProvider === 'stripe' && data.data.clientSecret) {
         setClientSecret(data.data.clientSecret);
+        setRedirectionUrl(data.data.redirectionUrl);
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "فشل في بدء عملية الدفع");
+      console.error("Payment Initiation Error:", err.response?.data || err.message);
+      toast.error(err.response?.data?.message || err.message || "فشل في بدء عملية الدفع");
     } finally {
       setProcessing(false);
     }
@@ -132,8 +142,8 @@ const CartPage = () => {
               <Elements stripe={stripePromise} options={{ clientSecret }}>
                 <div className="flex flex-col">
                   <h2 className="text-lg font-bold text-gray-950 mb-4 text-center">بيانات البطاقة</h2>
-                  <CheckoutForm clientSecret={clientSecret} />
-                  <button onClick={() => setClientSecret("")} className="mt-6 text-gray-400 text-xs font-bold">رجوع</button>
+                  <CheckoutForm clientSecret={clientSecret} redirectionUrl={redirectionUrl} />
+                  <button onClick={() => { setClientSecret(""); setRedirectionUrl(""); }} className="mt-6 text-gray-400 text-xs font-bold">رجوع</button>
                 </div>
               </Elements>
             ) : (

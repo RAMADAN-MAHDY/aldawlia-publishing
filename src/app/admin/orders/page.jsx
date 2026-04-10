@@ -124,7 +124,7 @@ export default function AdminOrdersPage() {
                                         <span className="block text-[10px] text-gray-400 mt-1 opacity-60 uppercase">المزود: {order.provider}</span>
                                     </td>
                                     <td className="p-5 text-center font-black text-orange-600">
-                                        {order.amount.toLocaleString()} {order.currency === 'egp' ? 'ج.م' : order.currency}
+                                        {Number(order?.amount || 0).toLocaleString()} {order?.currency?.toLowerCase() === 'egp' ? 'ج.م' : (order?.currency || 'ج.م')}
                                     </td>
                                     <td className="p-5 text-center text-sm text-gray-500 font-semibold">
                                         {new Date(order.createdAt).toLocaleString('en-GB', { hour12: false })}
@@ -164,7 +164,7 @@ export default function AdminOrdersPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] text-gray-400 mb-1">المبلغ</p>
-                                    <p className="text-xs font-black text-orange-600">{order.amount.toLocaleString()} ج.م</p>
+                                    <p className="text-xs font-black text-orange-600">{Number(order?.amount || 0).toLocaleString()} ج.م</p>
                                 </div>
                                 <div className="col-span-2">
                                     <p className="text-[10px] text-gray-400 mb-1">رقم العملية (ID)</p>

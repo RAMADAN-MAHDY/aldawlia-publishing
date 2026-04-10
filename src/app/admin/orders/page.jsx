@@ -89,7 +89,7 @@ export default function AdminOrdersPage() {
 
             {/* Data Display */}
             <div className="bg-white rounded-2xl lg:rounded-[2.5rem] shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 dark:bg-gray-800">
-                
+
                 {/* Desktop Table View (يظهر فقط من 1024px فأكثر) */}
                 <div className="hidden lg:block overflow-x-auto scrollbar-hide">
                     <table className="w-full min-w-[900px] text-right table-auto">

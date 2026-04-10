@@ -58,7 +58,7 @@ export default function BannerCarousel() {
             priority={i === 0} // الصورة الأولى فقط تحمل فوراً
             loading={i === 0 ? "eager" : "lazy"} // الصور الباقية تحمل في الخلفية بهدوء
             sizes="100vw" // عشان المتصفح ميرتبكش في الحسابات
-            quality={90} // رفعنا الجودة لـ 90 عشان الوضوح
+          
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">

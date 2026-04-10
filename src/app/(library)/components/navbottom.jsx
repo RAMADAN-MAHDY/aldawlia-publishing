@@ -5,9 +5,8 @@ import { useRouter, usePathname } from "next/navigation";
 import Home from "lucide-react/dist/esm/icons/home";
 import ShoppingCart from "lucide-react/dist/esm/icons/shopping-cart";
 import User from "lucide-react/dist/esm/icons/user";
-import Info from "lucide-react/dist/esm/icons/info";
 import Phone from "lucide-react/dist/esm/icons/phone";
-
+import BookOpen from "lucide-react/dist/esm/icons/book-open";
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
 import { useCartStore } from "@/app/(library)/store/useCartStore";
 
@@ -59,13 +58,12 @@ const NavBottom = () => {
         </span>
       </div>
 
-      {/* عن الموقع */}
-      <div
-        onClick={() => router.push('/about')}
-        className={`flex flex-col items-center cursor-pointer ${pathname === '/about' ? 'text-amber-600' : 'text-gray-400'}`}
+     <div
+        onClick={() => router.push('/my-purchases')}
+        className={`flex flex-col items-center cursor-pointer ${pathname === '/my-purchases' ? 'text-amber-600' : 'text-gray-400'}`}
       >
-        <Info size={24} strokeWidth={pathname === '/about' ? 2.5 : 2} />
-        <span className={`text-[10px] mt-1 ${pathname === '/about' ? 'font-bold' : ''}`}>عن الموقع</span>
+        <BookOpen size={24} strokeWidth={pathname === '/my-purchases' ? 2.5 : 2} />
+        <span className={`text-[10px] mt-1 ${pathname === '/my-purchases' ? 'font-bold' : ''}`}>مشترياتي</span>
       </div>
 
       {/* الحساب / تسجيل خروج */}

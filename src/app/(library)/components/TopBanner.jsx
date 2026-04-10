@@ -6,7 +6,7 @@ const TopBanner = () => {
     "مرحبا بكم في الدولية للتوزيع والنشر _ بيت الفكر، ومهد الإبداع، وجسر يصل الحرف بالتحليل والكتاب بالتنمية.";
 
   return (
-    <div className="bg-sky-900 text-white py-3 overflow-hidden border-b-4 border-amber-600  select-none">
+    <div className="bg-sky-900 text-white py-2 overflow-hidden border-b-4 border-amber-600  select-none">
       <div className="marquee">
         <div className="marquee-content">
           <span>{text}</span>
@@ -19,6 +19,7 @@ const TopBanner = () => {
           width: 100%;
           direction: rtl;
           display: flex;
+       
         }
 
         .marquee-content {

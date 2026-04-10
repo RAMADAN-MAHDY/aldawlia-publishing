@@ -146,12 +146,12 @@ const Navbar = () => {
               )}
             </Link>
 
-            {isAuthenticated && (
+           
               <Link href="/my-purchases" className="relative flex flex-col items-center group hover:scale-105 transition-all duration-300">
                 <BookOpen size={22} className="group-hover:text-amber-600 transition-colors text-sky-900" />
                 <span className="text-xs font-bold group-hover:text-amber-600 transition-colors text-sky-900">مشترياتي</span>
               </Link>
-            )}
+           
 
             <Link href="/cart" className="relative flex flex-col items-center group hover:scale-105 transition-all duration-300">
               <ShoppingCart size={22} className="group-hover:text-amber-600 transition-colors text-sky-900" />
@@ -209,7 +209,7 @@ const Navbar = () => {
             className="flex-shrink-0 flex items-end justify-center h-full -mt-4 md:-mt-6"
           >
             <Image
-              src="/logohome.png"
+              src="/logohome.webp"
               alt="Logo"
               width={60}
               height={60}

@@ -1,240 +1,224 @@
 "use client";
 import React from 'react';
 import { MotionScroll, FadeInItem } from "@/app/(library)/components/motionScroll";
+import { MessageCircle, Phone, CheckCircle2, BarChart3, Users, Truck, Globe } from "lucide-react";
 
-const AlhekmaInstitutePage = () => {
+const IslamicDirectoryPage = () => {
+    const whatsappNumber = "+12017059422";
+    const whatsappLink = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}`;
+
     return (
-        <div className="bg-white text-right font-sans leading-relaxed text-gray-800" dir="rtl">
-
-            {/* 1. Header & Official Identity */}
-            <header className="bg-gradient-to-l from-sky-900 to-sky-800 py-8 px-8 text-white border-b-[6px] border-amber-600">
-                <FadeInItem className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6">
-                    <div className="flex-shrink-0">
-                        <img
-                            src="/logo-instatute.png"
-                            alt="لوجو معهد الحكمة"
-                            className="w-24 h-24 md:w-32 md:h-32 object-contain bg-white p-2 rounded-2xl shadow-lg border-2 border-amber-600"
-                        />
-                    </div>
-
-                    <div className="text-right flex-grow">
-                        <h1 className="text-3xl md:text-4xl font-black mb-1">معهد الحكمة الدولي للدراسات الاستراتيجية</h1>
-                        <p className="text-lg md:text-xl text-amber-600 font-bold tracking-widest mb-3">International Wisdom Institute (IWI)</p>
-
-                        <div className="bg-white/10 inline-block px-4 py-2 rounded-lg backdrop-blur-sm border border-white/20">
-                            <p className="text-xl font-bold italic">"حكمة الرؤية.. قوة التحليل"</p>
-                        </div>
-
-                        <div className="mt-4 text-[12px] opacity-80 leading-tight">
-                            <p className="font-bold">الهوية المؤسسية الجديدة:</p>
-                            <p>الاسم الرسمي: International Wisdom Institute (IWI)</p>
-                            <p>التبعية القانونية: جناح الدراسات والأبحاث لشركة International House for Distribution LLC</p>
-                        </div>
+        <div className="bg-white text-right font-sans selection:bg-orange-100" dir="rtl">
+            
+            {/* --- Hero Section --- */}
+            <header className="relative bg-sky-900 py-20 px-6 overflow-hidden border-b-8 border-[#d97706]">
+                <div className="absolute inset-0 opacity-10 bg-[url('/pattern.png')] shadow-inner"></div>
+                <FadeInItem className="max-w-6xl mx-auto text-center relative z-10">
+                    <h1 className="text-4xl md:text-6xl font-black text-white mb-6">الدليل التجاري الإسلامي</h1>
+                    <p className="text-xl md:text-2xl text-[#d97706] font-bold mb-8">دليلك لأعمال موثوقة من مجتمعك</p>
+                    <p className="text-lg text-sky-50 max-w-3xl mx-auto leading-relaxed">
+                        اكتشف أفضل الخدمات والمهن من العرب والمسلمين في منطقتك.
+                    </p>
+                    <div className="mt-10 flex flex-wrap justify-center gap-4">
+                        <a 
+                            href={whatsappLink}
+                            target="_blank"
+                            className="bg-[#d97706] hover:bg-[#b45309] text-white font-black px-10 py-4 rounded-xl shadow-2xl transition-all transform hover:scale-105 inline-flex items-center gap-2"
+                        >
+                            <MessageCircle size={24} />
+                            تصفح الدليل (واتساب)
+                        </a>
                     </div>
                 </FadeInItem>
             </header>
 
-            <main className="max-w-7xl mx-auto px-8 py-8">
-
-                {/* 2. The Core Idea */}
-                <MotionScroll className="mb-10">
+            <main className="max-w-7xl mx-auto px-6 py-16">
+                
+                {/* --- Section 1: About Muslim Business Directory --- */}
+                <MotionScroll className="grid lg:grid-cols-2 gap-12 mb-24 items-start">
                     <FadeInItem>
-                        <h3 className="text-2xl font-bold text-sky-900 mb-4 border-r-8 border-amber-600 pr-4">أولًا: الفكرة الأساسية للمعهد (The Core Idea)</h3>
-                    </FadeInItem>
-                    <FadeInItem className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                        <p className="text-lg leading-relaxed mb-6">
-                            يقوم المعهد على دراسة التحولات العالمية في السياسة والاستراتيجية والجغرافيا السياسية، مع التركيز على فهم توازنات القوة الدولية وصياغة رؤى فكرية تساعد على قراءة المستقبل.
-                        </p>
-                        <p className="font-bold text-sky-700 mb-4 text-center">يركز المعهد على الجمع بين:</p>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            <div className="bg-white p-4 rounded-xl shadow-sm font-bold text-center border-b-4 border-sky-600">الحكمة الفكرية</div>
-                            <div className="bg-white p-4 rounded-xl shadow-sm font-bold text-center border-b-4 border-sky-600">التحليل الاستراتيجي</div>
-                            <div className="bg-white p-4 rounded-xl shadow-sm font-bold text-center border-b-4 border-sky-600">قراءة التحولات الجيوسياسية</div>
+                        <h2 className="text-3xl font-black text-sky-900 mb-8 border-r-8 border-[#d97706] pr-4">
+                            ABOUT Muslim BUSINESS DIRECTORY
+                        </h2>
+                        <div className="space-y-5 text-lg text-gray-700">
+                            <p className="font-medium text-sky-800 leading-relaxed italic">
+                                - The Muslim BUSINESS DIRECTORY is issued under the auspices of the --Islamic society of Bay ridge Brooklyn, New York, and International Publication house LCC in New Jersey.
+                            </p>
+                            <ul className="space-y-4">
+                                <li className="flex gap-3"><CheckCircle2 className="text-[#d97706] flex-shrink-0" /> <p>The Muslim Business Directory covers the east of the United States</p></li>
+                                <li className="flex gap-3"><CheckCircle2 className="text-[#d97706] flex-shrink-0" /> <p>The directory is distributed free of charge to Arab and Islamic shops, Islamic centers and institutions act.</p></li>
+                                <li className="flex gap-3"><CheckCircle2 className="text-[#d97706] flex-shrink-0" /> <p>The Muslim BUSINESS DIRECTORY is issued of each year.</p></li>
+                                <li className="flex gap-3"><CheckCircle2 className="text-[#d97706] flex-shrink-0" /> <p>The first issue of The Muslim BUSINESS DIRECTORY was in 1990</p></li>
+                            </ul>
+                            
+                            <hr className="my-8 border-sky-100" />
+                            
+                            <ul className="space-y-4 font-bold text-sky-900 leading-relaxed">
+                                <li>- يصدر الدليل برعاية كلاً من المركز الإسلامي في بيردج بروكلين نيويورك والدار الدولية للنشر والتوزيع بنيوجرسي.</li>
+                                <li>- الدليل التجاري الإسلامي يغطي شرق الولايات المتحدة.</li>
+                                <li>- يوزع الدليل مجاناً على المحلات العربية والإسلامية وعلى المراكز والمؤسسات الإسلامية.</li>
+                                <li>- يصدر الدليل كل عام.</li>
+                                <li>- أول عدد صدر من الدليل كان عام 1990 وما زال يصدر إلى الآن 2026.</li>
+                            </ul>
                         </div>
-                        <p className="mt-6 text-center italic text-gray-500">من أجل تقديم رؤى عميقة تساعد الباحثين وصناع القرار والمجتمعات على فهم العالم المتغير.</p>
+                        
+                        <a 
+                            href={whatsappLink}
+                            target="_blank"
+                            className="mt-8 p-6 bg-sky-50 rounded-2xl border-2 border-dashed border-sky-200 flex items-center gap-6 hover:bg-sky-100 transition-colors group"
+                        >
+                            <div className="bg-sky-900 p-4 rounded-full text-white group-hover:scale-110 transition-transform"><Phone size={30} /></div>
+                            <div>
+                                <p className="font-bold text-sky-900">لو لديك أي سؤال لا تتردد أن تتصل بنا:</p>
+                                <span className="text-3xl font-black text-[#d97706] tracking-tighter">9422 - 705-201</span>
+                            </div>
+                        </a>
                     </FadeInItem>
-                </MotionScroll>
 
-                {/* 3. Vision, Mission & About */}
-                <MotionScroll className="mb-10 grid lg:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                        <FadeInItem className="p-5 bg-sky-50 rounded-xl border-r-4 border-sky-900">
-                            <h4 className="font-bold text-sky-900 mb-2">1️⃣ التعريف بالمعهد (About the Institute)</h4>
-                            <p className="text-sm">معهد الحكمة الدولية (IWI) هو مركز فكري مستقل يعنى بالدراسات الاستراتيجية والجيوسياسية، ويهدف إلى فهم التحولات الكبرى في النظام الدولي وتحليل ديناميات القوة والتوازنات العالمية. يسعى المعهد لتقديم رؤى فكرية عميقة تساعد على تفسير التحولات السياسية والاستراتيجية.</p>
-                        </FadeInItem>
-                        <FadeInItem className="p-5 border border-sky-100 rounded-xl">
-                            <h4 className="font-bold text-sky-900 mb-2">2️⃣ الرؤية (Vision)</h4>
-                            <p className="text-sm">منصة فكرية دولية رائدة في الدراسات الاستراتيجية، تسهم في بناء فهم أعمق للتحولات العالمية وصياغة رؤى مستقبلية متوازنة.</p>
-                        </FadeInItem>
-                    </div>
-                    <div className="space-y-4">
-                        <FadeInItem className="p-5 bg-sky-900 text-white rounded-xl">
-                            <h4 className="font-bold text-amber-600 mb-2">3️⃣ الرسالة (Mission)</h4>
-                            <p className="text-sm">تقديم دراسات وتحليلات استراتيجية عالية المستوى حول القضايا الدولية والجيوسياسية، وتعزيز ثقافة التفكير الاستراتيجي والحكمة السياسية.</p>
-                        </FadeInItem>
-                        <FadeInItem className="p-5 bg-amber-600/10 rounded-xl border border-amber-600">
-                            <h4 className="font-bold text-sky-900 mb-2">6️⃣ القيم الأساسية (Core Values)</h4>
-                            <p className="text-xs font-bold text-sky-800 tracking-wide">الاستقلال الفكري | الموضوعية العلمية | التفكير الاستراتيجي | الحكمة في التحليل | الانفتاح على الحوار العالمي</p>
-                        </FadeInItem>
-                    </div>
-                </MotionScroll>
-
-                {/* 4. Strategic Objectives */}
-                <MotionScroll className="mb-10">
-                    <FadeInItem>
-                        <h4 className="text-xl font-bold text-sky-900 mb-4">4️⃣ الأهداف الاستراتيجية (Strategic Objectives)</h4>
-                    </FadeInItem>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
-                        {[
-                            "تطوير الدراسات الاستراتيجية والجيوسياسية.",
-                            "تحليل التحولات في النظام الدولي وموازين القوة.",
-                            "تقديم رؤى لفهم الصراعات والتحالفات الدولية.",
-                            "دعم الحوار الفكري حول مستقبل العلاقات الدولية.",
-                            "إنتاج بحوث ودراسات تخدم صناع القرار والباحثين.",
-                            "بناء شبكة دولية من الباحثين والمفكرين والخبراء."
-                        ].map((text, i) => (
-                            <FadeInItem key={i} className="bg-white border p-3 rounded-lg flex items-center gap-3">
-                                <span className="bg-sky-100 text-sky-900 w-6 h-6 flex items-center justify-center rounded-full text-xs font-black">{i + 1}</span>
-                                <p>{text}</p>
-                            </FadeInItem>
-                        ))}
-                    </div>
-                </MotionScroll>
-
-                {/* 5. Research Departments */}
-                <section className="mb-10 py-8 bg-sky-50 rounded-3xl px-6">
-                    <FadeInItem>
-                        <h3 className="text-2xl font-black text-sky-900 mb-8 text-center underline decoration-amber-600 underline-offset-8">الأقسام البحثية للمعهد</h3>
-                    </FadeInItem>
-                    <MotionScroll className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <FadeInItem className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-sky-900">
-                            <h5 className="font-bold text-sky-900 mb-2">1️⃣ قسم الدراسات الجيوسياسية</h5>
-                            <p className="text-[11px] text-gray-500 mb-3 italic">دراسة تأثير الجغرافيا في تشكيل السياسات الدولية وتوازنات القوة.</p>
-                            <ul className="text-xs space-y-1 font-medium">
-                                <li>• تحليل التوازنات الجيوسياسية العالمية</li>
-                                <li>• دراسة مناطق النفوذ والصراع</li>
-                                <li>• تحليل التحالفات ومتابعة تحولات النظام</li>
-                            </ul>
-                        </FadeInItem>
-
-                        <FadeInItem className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-sky-900">
-                            <h5 className="font-bold text-sky-900 mb-2">2️⃣ قسم الدراسات الاستراتيجية</h5>
-                            <p className="text-[11px] text-gray-500 mb-3 italic">تحليل الاستراتيجيات الدولية والعسكرية والسياسية للدول الكبرى.</p>
-                            <ul className="text-xs space-y-1 font-medium">
-                                <li>• تحليل الاستراتيجيات الدولية</li>
-                                <li>• دراسة العقائد العسكرية وإدارة الصراعات</li>
-                                <li>• تقييم سياسات الأمن القومي</li>
-                            </ul>
-                        </FadeInItem>
-
-                        <FadeInItem className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-sky-900">
-                            <h5 className="font-bold text-sky-900 mb-2">3️⃣ قسم دراسات النظام الدولي</h5>
-                            <p className="text-[11px] text-gray-500 mb-3 italic">دراسة تطور النظام الدولي وتحولات القوة بين الأقطاب.</p>
-                            <ul className="text-xs space-y-1 font-medium">
-                                <li>• دراسة النظام الدولي المعاصر</li>
-                                <li>• تحليل صعود وسقوط القوى الكبرى</li>
-                                <li>• دراسة موازين القوة ومستقبل النظام</li>
-                            </ul>
-                        </FadeInItem>
-
-                        <div className="lg:col-span-3 grid md:grid-cols-4 gap-4 mt-2">
-                            {[
-                                { name: "الأمن الدولي", text: "الأمن الإقليمي، الإرهاب، الأمن السيبراني والطاقوي." },
-                                { name: "الاقتصاد الجيوسياسي", text: "الاقتصاد السياسي، الصراعات الاقتصادية، العقوبات والموارد." },
-                                { name: "الدراسات المستقبلية", text: "بناء السيناريوهات، استشراف التحولات، ودراسة مستقبل القوة." },
-                                { name: "الفكر والحكمة السياسية", text: "فلسفة القوة، الفكر الاستراتيجي، والحكمة السياسية." }
-                            ].map((dept, i) => (
-                                <FadeInItem key={i} className="bg-sky-900 text-white p-4 rounded-xl border-r-4 border-amber-600">
-                                    <h6 className="font-bold text-xs mb-1 text-amber-600 underline">{dept.name}</h6>
-                                    <p className="text-[10px] opacity-80 leading-tight">{dept.text}</p>
-                                </FadeInItem>
+                    <FadeInItem className="bg-sky-900 text-white p-10 rounded-[2.5rem] shadow-2xl">
+                        <h3 className="text-2xl font-bold mb-8 text-[#d97706] border-b border-white/10 pb-4 italic tracking-tighter">🧾 صاحب عمل (Business Owner)</h3>
+                        <div className="space-y-6 mb-10">
+                            {["يدخل قسم الدليل", "ينشئ حساب", "يضيف نشاطه", "يظهر في الدليل", "يحصل على عملاء"].map((step, index) => (
+                                <div key={index} className="flex items-center gap-4 group">
+                                    <span className="w-10 h-10 rounded-full bg-[#d97706] text-white flex items-center justify-center font-black group-hover:scale-110 transition-transform">{index + 1}</span>
+                                    <p className="text-xl font-medium tracking-tight">{step}</p>
+                                </div>
                             ))}
                         </div>
+                        <a 
+                            href={whatsappLink}
+                            target="_blank"
+                            className="w-full bg-[#d97706] hover:bg-[#b45309] text-white text-center font-black py-5 rounded-xl shadow-lg block transition-all uppercase"
+                        >
+                            أضف نشاطك وتصفح الدليل
+                        </a>
+                    </FadeInItem>
+                </MotionScroll>
+
+                {/* --- Section 2: Distribution & Logistics --- */}
+                <MotionScroll className="grid md:grid-cols-2 gap-8 mb-24">
+                    <FadeInItem className="bg-[#d97706] text-white p-10 rounded-[2.5rem] shadow-xl flex flex-col justify-between">
+                        <div>
+                            <h3 className="text-3xl font-black mb-4 flex items-center gap-3"><Truck /> خدمات التوزيع</h3>
+                            <p className="text-xl font-bold mb-2 text-sky-900">نصل بمنتجك إلى جمهورك</p>
+                            <p className="text-lg opacity-90 leading-relaxed">شبكة توزيع فعالة تغطي الأسواق المحلية.</p>
+                        </div>
+                        <a href={whatsappLink} target="_blank" className="mt-8 bg-sky-900 text-white font-black px-10 py-4 rounded-xl self-start hover:bg-sky-800 transition-all shadow-lg">اطلب خدمة التوزيع</a>
+                    </FadeInItem>
+
+                    <FadeInItem className="bg-slate-50 p-10 rounded-[2.5rem] border-2 border-sky-100 flex flex-col justify-between shadow-inner">
+                        <div>
+                            <h3 className="text-3xl font-black text-sky-900 mb-4 flex items-center gap-3">📊 دراسات الجدوى</h3>
+                            <p className="text-gray-700 leading-relaxed mb-4">نساعدك على تحويل فكرتك إلى مشروع واقعي من خلال دراسات دقيقة وتحليل شامل للسوق، لضمان اتخاذ قرارات مدروسة.</p>
+                            <p className="font-bold text-[#d97706] text-xl">حوّل فكرتك إلى مشروع ناجح</p>
+                        </div>
+                        <p className="mt-4 text-sm text-gray-500 font-bold italic">نقدم لك دراسة شاملة تساعدك على اتخاذ القرار الصحيح.</p>
+                    </FadeInItem>
+                </MotionScroll>
+
+                {/* --- Section 3: Detailed Feasibility Institution --- */}
+                <section className="mb-24">
+                    <MotionScroll className="bg-sky-900 text-white rounded-[3rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+                        <div className="max-w-4xl mx-auto relative z-10">
+                            <FadeInItem className="text-center mb-16">
+                                <h2 className="text-4xl md:text-5xl font-black mb-8 text-[#d97706] underline underline-offset-8 decoration-white/20 uppercase tracking-tighter">المؤسسة الدولية لدراسات الجدوى</h2>
+                                <p className="text-xl leading-relaxed opacity-90 font-medium">
+                                    في عالم سريع التغيّر مثل <span className="font-bold text-[#d97706]">New York City</span> و <span className="font-bold text-[#d97706]">New Jersey</span>، لم يعد النجاح في المشاريع قائماً على الحماس فقط… بل على التخطيط الدقيق، التحليل الذكي، واتخاذ القرار الصحيح في الوقت المناسب.
+                                </p>
+                            </FadeInItem>
+
+                            <div className="grid md:grid-cols-2 gap-12 mb-16">
+                                <FadeInItem className="space-y-6">
+                                    <h4 className="text-2xl font-bold text-[#d97706] flex items-center gap-2">💡 لماذا دراسات الجدوى مهمة؟</h4>
+                                    <p className="text-lg opacity-80 leading-loose">كثير من المشاريع تبدأ بفكرة رائعة… لكنها تفشل بسبب غياب الرؤية الواضحة. دراسة الجدوى هي خريطة طريق متكاملة تساعدك على فهم: هل مشروعك قابل للنجاح؟ كم تحتاج من رأس المال؟ ما حجم الأرباح المتوقعة؟ ومن هم المنافسون؟ وما هي المخاطر المحتملة؟</p>
+                                </FadeInItem>
+                                <FadeInItem className="space-y-6 bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm">
+                                    <h4 className="text-2xl font-bold text-[#d97706] flex items-center gap-2">🔍 ماذا نقدم لك؟</h4>
+                                    <div className="space-y-4 text-sm font-bold">
+                                        <p className="text-sky-300">✔️ دراسة السوق (تحليل الطلب وسلوك العملاء)</p>
+                                        <p className="text-sky-300">✔️ الدراسة المالية (التكاليف، الإيرادات، ونقطة التعادل)</p>
+                                        <p className="text-sky-300">✔️ الدراسة التشغيلية (الموارد، المعدات، وآلية العمل)</p>
+                                        <p className="text-sky-300">✔️ تحليل المخاطر والتوصيات النهائية</p>
+                                    </div>
+                                </FadeInItem>
+                            </div>
+
+                            <FadeInItem className="bg-white text-sky-900 p-10 rounded-[2.5rem] text-center shadow-2xl border-t-8 border-[#d97706]">
+                                <h4 className="text-3xl font-black mb-6 italic underline underline-offset-4 decoration-[#d97706]">حوّل فكرتك إلى مشروع ناجح</h4>
+                                <p className="text-lg font-bold mb-8 opacity-80">لا تبدأ مشروعك بالحدس فقط… ابدأه بعلم، وخطة، ورؤية واضحة.</p>
+                                
+                                <a 
+                                    href={whatsappLink} 
+                                    target="_blank" 
+                                    className="inline-flex items-center gap-4 bg-[#d97706] hover:bg-[#b45309] text-white font-black px-12 py-5 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95"
+                                >
+                                    <MessageCircle size={28} />
+                                    اطلب دراسة جدوى الآن (واتساب)
+                                </a>
+                                
+                                <p className="mt-8 text-sm font-black text-sky-800 leading-loose border-t pt-8">
+                                    ملحوظة مهمة: نحن متخصصون في دراسات الجدوى الغير تقليدية مثل دراسات جدوى الجامعات والمدارس الخاصة والمصانع بجميع أنواعها.
+                                </p>
+                            </FadeInItem>
+                        </div>
                     </MotionScroll>
                 </section>
 
-                {/* 6. Strategic Specialized Units */}
-                <MotionScroll className="mb-10">
-                    <FadeInItem>
-                        <h4 className="text-xl font-bold text-sky-900 mb-6 border-r-4 border-amber-600 pr-3">الوحدات الاستراتيجية المتخصصة</h4>
+                {/* --- Section 4: Blog & Additional --- */}
+                <MotionScroll className="mb-24">
+                    <FadeInItem className="text-center mb-10">
+                        <h3 className="text-3xl font-black text-sky-900 flex justify-center items-center gap-3 uppercase tracking-widest"><BarChart3 /> المدونة (Blog)</h3>
                     </FadeInItem>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {[
-                            { title: "1️⃣ وحدة تحليل الأزمات الدولية", desc: "متابعة الأزمات وتقديم تقديرات الموقف ودراسة السيناريوهات." },
-                            { title: "2️⃣ وحدة الدراسات الإقليمية", desc: "التوازنات في الشرق الأوسط، آسيا، أوروبا، إفريقيا، والأميركيتان." },
-                            { title: "3️⃣ وحدة التقارير الاستراتيجية", desc: "التقرير الجيوسياسي السنوي، تقرير المخاطر العالمية، وموازين القوة." },
-                            { title: "4️⃣ وحدة الخرائط الجيوسياسية", desc: "إنتاج خرائط مناطق النفوذ، التحالفات العسكرية، والطاقة والموارد." }
-                        ].map((unit, i) => (
-                            <FadeInItem key={i} className="p-4 border border-gray-200 rounded-xl">
-                                <h5 className="font-bold text-sky-800 mb-1 text-sm underline">{unit.title}</h5>
-                                <p className="text-[11px] leading-relaxed italic">{unit.desc}</p>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {["كيف تبدأ مشروعك في أمريكا؟", "أخطاء القروض", "التسويق للمشاريع الصغيرة"].map((blog, i) => (
+                            <FadeInItem key={i} className="bg-sky-50 p-8 rounded-2xl font-bold text-sky-900 border-b-8 border-[#d97706] text-center shadow-sm hover:shadow-md transition-shadow">
+                                {blog}
                             </FadeInItem>
                         ))}
-                        <FadeInItem className="p-4 border border-gray-200 rounded-xl lg:col-span-2">
-                            <h5 className="font-bold text-sky-800 mb-1 text-sm underline">5️⃣ وحدة البيانات والتحليل</h5>
-                            <p className="text-[11px] leading-relaxed italic">بناء قواعد بيانات استراتيجية، تحليل الاتجاهات العالمية، تحليل المخاطر ودعم الدراسات بالأرقام.</p>
-                        </FadeInItem>
                     </div>
                 </MotionScroll>
 
-                {/* 7. Future Institutional Structure */}
-                <section className="mb-10 bg-gray-900 text-white p-8 rounded-[2rem]">
-                    <FadeInItem>
-                        <h4 className="text-xl font-bold text-amber-600 mb-6 text-center">المرحلة القادمة: الهيبة والهيكل المؤسسي</h4>
-                    </FadeInItem>
-                    <MotionScroll className="flex flex-wrap justify-center gap-3">
-                        {[
-                            "مجلس الأمناء", "المجلس العلمي", "المدير التنفيذي", "المجلس الاستشاري الدولي",
-                            "هيئة الباحثين", "مجلة المعهد العلمية", "سلسلة الإصدارات", "مركز التدريب",
-                            "مركز الحوار الدولي", "وحدة النشر"
-                        ].map((name, i) => (
-                            <FadeInItem key={i}>
-                                <span className="bg-white/10 px-4 py-2 rounded-lg text-xs font-bold border border-white/10">
-                                    {name}
-                                </span>
-                            </FadeInItem>
-                        ))}
-                    </MotionScroll>
-                    <FadeInItem className="mt-8 text-center text-sm font-black italic text-amber-600">
-                        "حكمة الرؤية.. قوة التحليل"
-                    </FadeInItem>
-                </section>
-
-                {/* 8. Activities & Domains */}
-                <MotionScroll className="grid md:grid-cols-2 gap-8 border-t pt-8">
-                    <FadeInItem>
-                        <h4 className="text-lg font-bold text-sky-900 mb-4 underline">5️⃣ مجالات البحث (Research Domains)</h4>
-                        <div className="grid grid-cols-2 gap-2 text-xs font-bold opacity-80">
-                            <p>• الجغرافيا السياسية</p><p>• الاستراتيجية الدولية</p>
-                            <p>• تحولات النظام العالمي</p><p>• الأمن الدولي</p>
-                            <p>• الاقتصاد الجيوسياسي</p><p>• دراسات القوة والنفوذ</p>
-                        </div>
-                    </FadeInItem>
-                    <FadeInItem>
-                        <h4 className="text-lg font-bold text-sky-900 mb-4 underline">7️⃣ أنشطة المعهد (Activities)</h4>
-                        <ul className="space-y-1 text-xs font-medium">
-                            <li>• إصدار الدراسات والتقارير الاستراتيجية الدورية.</li>
-                            <li>• تنظيم المؤتمرات والندوات الفكرية الدولية.</li>
-                            <li>• نشر المقالات التحليلية وبناء منصات للحوار.</li>
-                            <li>• تدريب الباحثين الشباب في التفكير الاستراتيجي.</li>
-                        </ul>
+                {/* --- Final CTA Section --- */}
+                <MotionScroll>
+                    <FadeInItem className="bg-sky-50 rounded-[3rem] p-12 text-center border-2 border-dashed border-sky-200">
+                         <h3 className="text-3xl font-black text-sky-900 mb-8 italic">هل لديك فكرة مشروع؟ دعنا نحولها معك إلى خطة ناجحة.</h3>
+                         <div className="flex flex-wrap justify-center gap-6">
+                            <a 
+                                href={whatsappLink} 
+                                target="_blank" 
+                                className="flex items-center gap-3 bg-green-600 text-white px-10 py-5 rounded-2xl font-black hover:bg-green-700 transition-all shadow-xl hover:scale-105"
+                            >
+                                <MessageCircle size={24} /> تواصل واتساب الآن
+                            </a>
+                            <a 
+                                href={whatsappLink} 
+                                target="_blank" 
+                                className="flex items-center gap-3 bg-sky-900 text-white px-10 py-5 rounded-2xl font-black hover:bg-sky-800 transition-all shadow-xl hover:scale-105"
+                            >
+                                اطلب دراسة جدوى
+                            </a>
+                         </div>
                     </FadeInItem>
                 </MotionScroll>
 
             </main>
 
-            {/* Footer Branding */}
-            <footer className="bg-sky-900 text-white py-10 px-8 text-center border-t-8 border-amber-600">
-                <FadeInItem>
-                    <h5 className="text-xl font-black mb-1">INTERNATIONAL WISDOM INSTITUTE (IWI)</h5>
-                    <p className="text-xs opacity-60 italic mb-4 tracking-widest">Strategic & Geopolitical Studies</p>
-                    <div className="text-[10px] opacity-40 uppercase">
-                        جناح الدراسات والأبحاث لشركة International House for Distribution LLC © 2026
-                    </div>
-                </FadeInItem>
+            {/* --- Footer --- */}
+            <footer className="bg-sky-950 text-white py-16 px-6 border-t-[10px] border-[#d97706]">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+                    <FadeInItem className="text-right">
+                        <h4 className="text-3xl font-black mb-1 italic tracking-tighter">Muslim Business Directory</h4>
+                        <p className="text-[#d97706] font-bold text-lg tracking-[.4em] uppercase">Established 1990 • 2026</p>
+                    </FadeInItem>
+                    <FadeInItem className="text-center md:text-left space-y-2 opacity-60">
+                        <p className="font-bold">International House for Distribution LLC</p>
+                        <p className="text-sm">Brooklyn, NY | New Jersey, USA</p>
+                        <p className="text-[10px] tracking-widest uppercase mt-4">All Rights Reserved © 2026</p>
+                    </FadeInItem>
+                </div>
             </footer>
         </div>
     );
 };
 
-export default AlhekmaInstitutePage;
+export default IslamicDirectoryPage;

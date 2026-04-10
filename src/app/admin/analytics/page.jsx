@@ -30,9 +30,10 @@ export default function AdminAnalyticsPage() {
         setLoading(true);
         try {
             console.log("🚀 جاري جلب البيانات...");
+            // استخدام المسارات التي تضمن عودة البيانات كما في الصورة
             const [statsRes, paymentsRes] = await Promise.allSettled([
                 api.get('/admin/stats/advanced'),
-                api.get('/payments?limit=10&status=succeeded') // زودنا الليمت للتأكد
+                api.get('/payments?limit=5&status=succeeded')
             ]);
 
             if (statsRes.status === 'fulfilled') {
@@ -41,9 +42,9 @@ export default function AdminAnalyticsPage() {
             }
 
             if (paymentsRes.status === 'fulfilled') {
-                // محاولة قراءة الداتا من أكتر من مسار محتمل
-                const rawPayments = paymentsRes.value.data;
-                const pData = rawPayments?.data?.results || rawPayments?.results || rawPayments?.data || [];
+                const rawData = paymentsRes.value.data;
+                // محاولة الوصول للمصفوفة الصحيحة من الـ API
+                const pData = rawData.data?.results || rawData.results || rawData.data || [];
                 console.log("💳 Payments Data:", pData);
                 setRecentPayments(pData);
             }
@@ -89,30 +90,31 @@ export default function AdminAnalyticsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                {/* 1. AOV - شغال تمام */}
+                {/* 1. AOV */}
                 <div className="bg-white rounded-3xl shadow-sm p-6 border border-gray-100">
                     <div className="flex items-center gap-3 mb-4 text-emerald-600">
                         <Target className="w-6 h-6" />
                         <h3 className="font-bold text-gray-700">متوسط قيمة الطلب</h3>
                     </div>
                     <div className="text-4xl font-black text-gray-900">
-                        {Number(stats.aov?.averageAmount || stats.aov?.averageCents || 0).toLocaleString()} <span className="text-lg font-normal text-gray-400">ج.م</span>
+                        {Number(stats.aov?.average || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })} 
+                        <span className="text-lg font-normal text-gray-400">ج.م</span>
                     </div>
                 </div>
 
-                {/* 2. قنوات التسجيل - اتظبطت */}
+                {/* 2. قنوات التسجيل */}
                 <div className="bg-white rounded-3xl shadow-sm p-6 border border-gray-100">
                     <div className="flex items-center gap-3 mb-4 text-blue-600">
                         <UserPlus className="w-6 h-6" />
                         <h3 className="font-bold text-gray-700">قنوات التسجيل</h3>
                     </div>
                     <div className="space-y-2">
-                        {(Array.isArray(stats.signupChannels) ? stats.signupChannels : []).map((chan, idx) => (
+                        {stats.signupChannels && Object.entries(stats.signupChannels).map(([channel, count], idx) => (
                             <div key={idx} className="flex justify-between p-2 bg-gray-50 rounded-xl border border-gray-100/50">
                                 <span className="text-xs font-bold text-gray-600 uppercase">
-                                    {chan.channel === 'google' ? 'جوجل' : (chan.channel === 'local' ? 'إيميل' : chan.channel)}
+                                    {channel === 'google' ? 'جوجل' : (channel === 'local' ? 'إيميل' : channel)}
                                 </span>
-                                <span className="font-black text-blue-600">{chan.count}</span>
+                                <span className="font-black text-blue-600">{count}</span>
                             </div>
                         ))}
                     </div>
@@ -130,10 +132,9 @@ export default function AdminAnalyticsPage() {
                     <p className="text-[10px] text-gray-400 italic">كتب مر عليها 30 يوم بدون مبيعات</p>
                 </div>
 
-                {/* التصنيفات والمبيعات */}
                 <div className="md:col-span-2 lg:col-span-3 grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    {/* Category Chart */}
+                    {/* الربح حسب القسم */}
                     <div className="lg:col-span-2 bg-white rounded-3xl shadow-sm p-8 border border-gray-100">
                         <h3 className="text-xl font-black text-gray-800 mb-8 flex items-center gap-2">
                             <BarChartIcon className="text-pink-600" /> الربح حسب القسم
@@ -141,34 +142,35 @@ export default function AdminAnalyticsPage() {
                         <div className="space-y-6">
                             {Array.isArray(stats.categoryPerformance) && stats.categoryPerformance.length > 0 ? (
                                 stats.categoryPerformance.map((cat, i) => {
-                                    if (!cat) return null;
-                                    const amount = Number(cat.totalRevenue || cat.totalRevenueCents) || 0;
-                                    const max = Math.max(...stats.categoryPerformance.map(c => Number(c?.totalRevenue || c?.totalRevenueCents) || 0), 1);
-                                    const percent = (amount / max) * 100;
+                                    const amount = Number(cat.totalRevenue) || 0;
+                                    const maxRevenue = Math.max(...stats.categoryPerformance.map(c => Number(c.totalRevenue) || 0), 1);
+                                    const percent = (amount / maxRevenue) * 100;
+                                    
                                     return (
                                         <div key={i} className="space-y-2">
                                             <div className="flex justify-between text-sm font-black">
-                                                <span>{cat.category || cat.name || cat.categoryName || cat._id?.name || "قسم عام"}</span>
-                                                <span className="text-pink-600">{amount.toLocaleString()} ج.م</span>
+                                                <span>{cat.category}</span>
+                                                <div className="flex flex-col items-end">
+                                                    <span className="text-pink-600">{amount.toLocaleString()} ج.م</span>
+                                                    <span className="text-[10px] text-gray-400 font-normal">{cat.booksSold} كتاب مُباع</span>
+                                                </div>
                                             </div>
                                             <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                                                <div className="h-full bg-pink-500" style={{ width: `${percent}%` }} />
+                                                <div className="h-full bg-pink-500 transition-all duration-500" style={{ width: `${percent}%` }} />
                                             </div>
                                         </div>
                                     )
                                 })
                             ) : (
-                                <div className="text-center py-10 text-gray-300 italic text-sm border-2 border-dashed border-gray-50 rounded-3xl">
-                                    لا توجد بيانات تصنيفات حالياً من السيرفر
-                                </div>
+                                <div className="text-center py-10 text-gray-300 italic text-sm">لا توجد بيانات تصنيفات</div>
                             )}
                         </div>
                     </div>
 
-                    {/* أحدث العمليات */}
+                    {/* آخر المبيعات - تم الربط مع مسار payments */}
                     <div className="bg-white rounded-3xl shadow-sm p-6 border border-gray-100">
                         <h3 className="font-black text-gray-800 mb-6 flex items-center gap-2 text-sm">
-                            <LayoutDashboard className="w-4 h-4 text-pink-500" /> آخر 5 مبيعات ناجحة
+                            <LayoutDashboard className="w-4 h-4 text-pink-500" /> مبيعات الداشبورد
                         </h3>
                         <div className="space-y-4">
                             {recentPayments.length > 0 ? (
@@ -179,17 +181,22 @@ export default function AdminAnalyticsPage() {
                                                 <DollarSign size={14} className="text-emerald-500" />
                                             </div>
                                             <div className="truncate">
-                                                <p className="text-[10px] font-black text-gray-800 truncate">{pay.book?.title || 'طلب كتاب'}</p>
-                                                <p className="text-[8px] text-gray-400">{pay.user?.name || 'عميل'}</p>
+                                                <p className="text-[10px] font-black text-gray-800 truncate">
+                                                    {pay.book?.title || pay.bookTitle || 'طلب كتاب'}
+                                                </p>
+                                                <p className="text-[8px] text-gray-400">
+                                                    {pay.user?.name || pay.userName || 'عميل'}
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="text-left font-black text-emerald-600 text-xs">
-                                            +{Number(pay?.amount || 0).toLocaleString()}
+                                            {/* التحقق إذا كانت العملة بالسنت أم بالجنيه */}
+                                            +{(Number(pay.amount || 0) > 10000 ? pay.amount / 100 : pay.amount).toLocaleString()}
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <p className="text-center py-20 text-[10px] text-gray-300 italic">لم يتم العثور على عمليات دفع ناجحة</p>
+                                <p className="text-center py-20 text-[10px] text-gray-300 italic">لا توجد مبيعات حالياً</p>
                             )}
                         </div>
                     </div>

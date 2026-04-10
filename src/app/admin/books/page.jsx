@@ -72,9 +72,9 @@ export default function AdminProductsPage() {
         setSubmitting(true);
         const formData = new FormData();
         formData.append("title", form.title);
-        formData.append("price", Math.round(parseFloat(form.price)));
+        formData.append("price", parseFloat(form.price));
         if (form.discountPrice && form.discountPrice.toString().trim() !== "") {
-            formData.append("discountPrice", Math.round(parseFloat(form.discountPrice)));
+            formData.append("discountPrice", parseFloat(form.discountPrice));
         }
         formData.append("isOnSale", form.isOnSale ? "true" : "false");
         formData.append("category", form.category);
@@ -195,12 +195,12 @@ export default function AdminProductsPage() {
 
                     <div className="space-y-1.5">
                         <label className="text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mr-1">السعر (ج.م)</label>
-                        <input className="w-full p-3.5 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl md:rounded-2xl font-bold text-sm" type="number" step="1" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="150" required />
+                        <input className="w-full p-3.5 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl md:rounded-2xl font-bold text-sm" type="number" step="any" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="150.00" required />
                     </div>
 
                     <div className="space-y-1.5">
                         <label className="text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mr-1">السعر بعد الخصم</label>
-                        <input className="w-full p-3.5 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl md:rounded-2xl font-bold text-sm" type="number" step="1" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} placeholder="100" />
+                        <input className="w-full p-3.5 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl md:rounded-2xl font-bold text-sm" type="number" step="any" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} placeholder="100.00" />
                     </div>
 
                     <div className="flex items-center gap-3 px-4 py-3 md:py-0 bg-blue-50/50 dark:bg-blue-900/10 rounded-xl md:rounded-2xl border border-blue-100 dark:border-blue-900/30">

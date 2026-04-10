@@ -180,7 +180,7 @@ export default function AdminAnalyticsPage() {
                                             </div>
                                         </div>
                                         <div className="text-left font-black text-emerald-600 text-xs">
-                                            +{pay.amount.toFixed(0)}
+                                            +{pay.amount.toLocaleString()}
                                         </div>
                                     </div>
                                 ))

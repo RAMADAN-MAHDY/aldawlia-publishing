@@ -46,7 +46,7 @@ export default function AlhekmaInstitutePage() {
 
                     <FadeInItem className="flex-shrink-0 mt-8 md:mt-0">
                         <img
-                            src="/logo-instatute.webp"
+                            src="/logo-instatute.jpeg"
                             alt="لوجو معهد الحكمة"
                             className="w-24 h-24 md:w-36 md:h-36 object-contain bg-white p-2 rounded-2xl shadow-lg border-2 border-amber-600"
                         />

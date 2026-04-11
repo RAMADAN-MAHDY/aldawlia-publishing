@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from "next/image";
 import { MotionScroll, FadeInItem } from "@/app/(library)/components/motionScroll";
 import { MessageCircle, Phone, CheckCircle2, BarChart3, Users, Truck, Globe } from "lucide-react";
 
@@ -11,25 +12,66 @@ const IslamicDirectoryPage = () => {
         <div className="bg-white text-right font-sans selection:bg-orange-100" dir="rtl">
             
             {/* --- Hero Section --- */}
-            <header className="relative bg-sky-900 py-20 px-6 overflow-hidden border-b-8 border-[#d97706]">
+            <header className="relative bg-sky-900 py-16 md:py-24 px-2 overflow-hidden border-b-8 border-[#d97706]">
                 <div className="absolute inset-0 opacity-10 bg-[url('/pattern.png')] shadow-inner"></div>
-                <FadeInItem className="max-w-6xl mx-auto text-center relative z-10">
-                    <h1 className="text-4xl md:text-6xl font-black text-white mb-6">الدليل التجاري الإسلامي</h1>
-                    <p className="text-xl md:text-2xl text-[#d97706] font-bold mb-8">دليلك لأعمال موثوقة من مجتمعك</p>
-                    <p className="text-lg text-sky-50 max-w-3xl mx-auto leading-relaxed">
-                        اكتشف أفضل الخدمات والمهن من العرب والمسلمين في منطقتك.
-                    </p>
-                    <div className="mt-10 flex flex-wrap justify-center gap-4">
-                        <a 
-                            href={whatsappLink}
-                            target="_blank"
-                            className="bg-[#d97706] hover:bg-[#b45309] text-white font-black px-10 py-4 rounded-xl shadow-2xl transition-all transform hover:scale-105 inline-flex items-center gap-2"
-                        >
-                            <MessageCircle size={24} />
-                            تصفح الدليل (واتساب)
-                        </a>
-                    </div>
-                </FadeInItem>
+                
+                <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start relative z-10">
+                    
+                    {/* المحتوى النصي - جهة اليمين */}
+                   {/* المحتوى النصي - جهة اليمين */}
+<FadeInItem className="text-right">
+    <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+        الدليل التجاري <br/>
+        <span className="text-[#d97706]">الإسلامي</span>
+    </h1>
+    <p className="text-xl md:text-2xl text-[#d97706] font-bold mb-8">دليلك لأعمال موثوقة من مجتمعك</p>
+    
+    <div className="text-lg text-sky-50 max-w-xl leading-relaxed mb-10 space-y-4">
+        <p>
+            اكتشف أفضل الخدمات والمهن من العرب والمسلمين في منطقتك. نحن نربط أصحاب الأعمال بجمهورهم المستهدف منذ عام 1990.
+        </p>
+        {/* السطور الإضافية لموازنة طول الصورة */}
+        <div className="border-r-4 border-[#d97706] pr-4 py-2 bg-white/5 rounded-l-lg">
+            <p className="text-sky-100 font-medium">
+                • يغطي الدليل كافة مناطق شرق الولايات المتحدة ويوزع مجاناً على المراكز والمؤسسات الإسلامية.
+            </p>
+            <p className="text-sky-100 font-medium mt-2">
+                • نعتبر الجسر الموثوق لربط الجالية العربية بأفضل مقدمي الخدمات المهنية والتجارية.
+            </p>
+        </div>
+    </div>
+
+    <div className="flex flex-wrap gap-4">
+        <a 
+            href={whatsappLink}
+            target="_blank"
+            className="bg-[#d97706] hover:bg-[#b45309] text-white font-black px-10 py-4 rounded-xl shadow-2xl transition-all transform hover:scale-105 inline-flex items-center gap-2"
+        >
+            <MessageCircle size={24} />
+            تصفح الدليل (واتساب)
+        </a>
+    </div>
+</FadeInItem>
+
+                    {/* الصورة - جهة اليسار */}
+                    <FadeInItem className="relative w-full flex justify-center lg:justify-end">
+    {/* الصورة - جهة اليسار */}
+{/* الصورة - جهة اليسار */}
+<FadeInItem className="relative w-full flex justify-center lg:justify-end">
+  <div className="relative w-[320px] h-[450px] md:w-[500px] md:h-[750px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
+    <Image 
+      src="/imghome2.jpeg" 
+      alt="Islamic Business Directory"
+      fill
+      className="object-cover"
+      priority
+      sizes="(max-width: 768px) 320px, 500px"
+    />
+  </div>
+</FadeInItem>
+                    </FadeInItem>
+
+                </div>
             </header>
 
             <main className="max-w-7xl mx-auto px-6 py-16">

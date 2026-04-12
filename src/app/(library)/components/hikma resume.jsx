@@ -8,7 +8,7 @@ const HikmaResume = () => {
   const router = useRouter();
 
   return (
-    <div className="py-16 bg-white overflow-hidden">
+    <div className="py-10 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* استخدمنا md:flex-row عشان الصورة يمين والكلام شمال في الشاشات الكبيرة */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">

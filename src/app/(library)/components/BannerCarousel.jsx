@@ -40,48 +40,43 @@ export default function BannerCarousel() {
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-gray-50"
-      /* الارتفاع الجديد الموزون: 300px للموبايل و 500px كحد أقصى للـ Desktop */
-      style={{ height: "clamp(280px, 40vw, 450px)" }}
+      className="relative w-full overflow-hidden bg-gray-50 rounded-b-2xl md:rounded-b-[2.5rem] shadow-sm"
+      style={{ height: "clamp(250px, 45vw, 550px)" }}
     >
       <AnimatePresence initial={false}>
         {slides.map((slide, i) => (
           i === index && (
             <motion.div
               key={slide.src}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute inset-0 w-full h-full"
-              style={{ zIndex: 10 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full z-0"
             >
               <Image
                 src={slide.src}
                 alt={slide.title}
                 fill
-                /* object-top تضمن بقاء الكلام العلوي ظاهراً عند تقصير الارتفاع */
                 className="object-cover object-top"
                 priority={i === 0}
-                sizes="100vw"
+                sizes="(max-width: 1280px) 100vw, 1280px"
               />
-              {/* Overlay خفيف جداً لإبراز الـ Dots */}
               <div className="absolute inset-0 bg-black/5" />
             </motion.div>
           )
         ))}
       </AnimatePresence>
 
-      {/* Dots Navigation */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`transition-all duration-700 h-1.5 rounded-full shadow-sm ${
+            className={`transition-all duration-500 h-1.5 rounded-full ${
               i === index
-                ? "w-10 bg-white"
-                : "w-2 bg-white/40 hover:bg-white/60"
+                ? "w-8 bg-white shadow-lg"
+                : "w-1.5 bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

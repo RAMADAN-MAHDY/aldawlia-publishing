@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import api from "@/app/api"; // استيراد ملف api.jsx للتعامل مع الطلبات
-import { ShoppingCart, Plus, Minus, Heart, Flame, Star, Search as SearchIcon, ArrowLeft } from "lucide-react";
+import { ShoppingCart, Plus, Minus, Heart, Flame, Star, Search as SearchIcon, ArrowLeft, Sparkles } from "lucide-react";
 import { useCartStore } from "@/app/(library)/store/useCartStore";
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
 import { useFavoritesStore } from "@/app/(library)/store/useFavoritesStore";
@@ -34,6 +34,8 @@ export default function SearchPage() {
         endpoint = '/files/trending';
       } else if (sort === 'popular') {
         endpoint = '/files/popular';
+      } else if (sort === 'latest') {
+        endpoint = '/files/latest';
       } else if (keyword) {
         params.q = keyword;
       } else {
@@ -56,6 +58,7 @@ export default function SearchPage() {
   const getPageTitle = () => {
     if (sort === 'trending') return { title: "الإصدارات الأكثر طلباً وحركة", icon: <Flame className="text-orange-500" fill="currentColor" /> };
     if (sort === 'popular') return { title: "الكتب الأكثر تفضيلاً لدى القراء", icon: <Star className="text-amber-600" fill="currentColor" /> };
+    if (sort === 'latest') return { title: "أحدث الإصدارات في المكتبة", icon: <Sparkles className="text-amber-600" /> };
     return { title: `نتائج البحث عن: ${keyword || ""}`, icon: <SearchIcon className="text-sky-900" /> };
   };
 

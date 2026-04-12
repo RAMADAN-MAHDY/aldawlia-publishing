@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import api from "@/app/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PackageSearch, Edit, Trash2, PlusCircle, ImageIcon, ChevronRight, ChevronLeft, Layers, AlignRight, FileText } from "lucide-react";
+import { PackageSearch, Edit, Trash2, PlusCircle, ImageIcon, ChevronRight, ChevronLeft, Layers, AlignRight, FileText, Calendar } from "lucide-react";
 
 export default function AdminProductsPage() {
     const [products, setProducts] = useState([]);
@@ -25,6 +25,7 @@ export default function AdminProductsPage() {
         category: "",
         productType: "",
         description: "",
+        release_date: "",
     });
 
     const fetchCategoriesAndTypes = async () => {
@@ -65,6 +66,14 @@ export default function AdminProductsPage() {
         if (!form.price) return toast.warn("السعر مطلوب");
         if (!form.category) return toast.warn("تحديد المجال مطلوب");
         if (!form.productType) return toast.warn("تحديد النوع مطلوب");
+        if (form.release_date) {
+            const releaseDate = new Date(form.release_date);
+            const today = new Date();
+            today.setHours(23, 59, 59, 999); // allow today
+            if (releaseDate > today) {
+                return toast.warn("تاريخ الإصدار لا يمكن أن يكون في المستقبل");
+            }
+        }
         if (!editProductId && !bookFile) {
             return toast.warn("يجب رفع ملف الكتاب (PDF/EPUB) عند الإضافة");
         }
@@ -80,6 +89,7 @@ export default function AdminProductsPage() {
         formData.append("category", form.category);
         formData.append("productType", form.productType);
         formData.append("description", form.description || "");
+        if (form.release_date) formData.append("release_date", form.release_date);
         if (bookFile) formData.append("file", bookFile);
         if (coverFile) formData.append("cover", coverFile);
 
@@ -109,7 +119,7 @@ export default function AdminProductsPage() {
     };
 
     const resetForm = () => {
-        setForm({ title: "", price: "", discountPrice: "", isOnSale: false, category: "", productType: "", description: "" });
+        setForm({ title: "", price: "", discountPrice: "", isOnSale: false, category: "", productType: "", description: "", release_date: "" });
         setBookFile(null);
         setCoverFile(null);
         setEditProductId(null);
@@ -139,6 +149,7 @@ export default function AdminProductsPage() {
             category: product.category?._id || product.category || "",
             productType: product.productType?._id || product.productType || "",
             description: product.description || "",
+            release_date: product.release_date ? product.release_date.split('T')[0] : "",
         });
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -201,6 +212,20 @@ export default function AdminProductsPage() {
                     <div className="space-y-1.5">
                         <label className="text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mr-1">السعر بعد الخصم</label>
                         <input className="w-full p-3.5 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl md:rounded-2xl font-bold text-sm" type="number" step="any" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} placeholder="100.00" />
+                    </div>
+
+                    <div className="space-y-1.5 relative">
+                        <label className="text-xs md:text-sm font-bold text-gray-700 dark:text-gray-300 mr-1">تاريخ الإصدار</label>
+                        <div className="relative">
+                            <input 
+                                className="w-full p-3.5 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl md:rounded-2xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500" 
+                                type="date" 
+                                value={form.release_date} 
+                                onChange={(e) => setForm({ ...form, release_date: e.target.value })} 
+                                max={new Date().toISOString().split('T')[0]}
+                            />
+                            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none hidden md:block" size={16} />
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-3 px-4 py-3 md:py-0 bg-blue-50/50 dark:bg-blue-900/10 rounded-xl md:rounded-2xl border border-blue-100 dark:border-blue-900/30">

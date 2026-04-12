@@ -29,9 +29,9 @@ const CategoryGrid = () => {
   if (error) return <div className="text-center text-red-500 mt-6">{error}</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 mb-20" dir="rtl">
-      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800">
-        تصنيفات المتجر
+    <div className="max-w-7xl mx-auto px-4 py-4 mb-10" dir="rtl">
+      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-blue-800">
+        أقسام الكتب
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">

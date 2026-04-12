@@ -8,7 +8,7 @@ const QuickAccessLinks = () => {
         {
             id: "trending",
             title: "الأكثر طلباً",
-            subtitle: "اكتشف الكتب الأكثر مبيعاً ورواجاً حالياً في دار الحكمة",
+            subtitle: "اكتشف الكتب الأكثر مبيعاً ورواجاً حالياً في دار النشر",
             icon: <Flame size={28} className="text-amber-600" fill="currentColor" />,
             bgColor: "bg-gradient-to-br from-slate-50 to-amber-50/20",
             borderColor: "border-slate-100",
@@ -64,7 +64,7 @@ const QuickAccessLinks = () => {
                             <div className="relative flex flex-col items-center text-center z-10">
                                 <div className={`mb-4 p-4 ${cat.iconBg} rounded-2xl group-hover:scale-105 group-hover:bg-amber-600 transition-all duration-500`}>
                                     {React.cloneElement(cat.icon, {
-                                        className: `transition-colors duration-500 ${cat.icon.props.className} group-hover:text-white`
+                                        className: `transition-colors duration-500 ${cat.icon.props.className} group-hover:text-white animate-pulse`
                                     })}
                                 </div>
 

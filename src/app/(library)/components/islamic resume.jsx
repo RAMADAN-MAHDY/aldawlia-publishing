@@ -8,7 +8,7 @@ const IslamicResume = () => {
   const router = useRouter();
 
   return (
-    <div className="py-16 bg-white overflow-hidden">
+    <div className="py-10 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
 

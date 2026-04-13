@@ -6,6 +6,7 @@ import NavBottom from "./components/navbottom";
 import Footer from "./components/footer";
 import TopBanner from "./components/TopBanner";
 import PageTransition from "./components/pageTransition"
+import LanguageProvider from "./components/LanguageProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,22 +27,24 @@ export const metadata = {
 
 export default function ShopLayout({ children }) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning> 
+    <html suppressHydrationWarning> 
       <body 
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
         suppressHydrationWarning
       >
-          <Providers>
-            <TopBanner/>
-            <Navbar />
-            <main className="min-h-screen">
-              <PageTransition>
-                {children}
-              </PageTransition>
-            </main>
-            <NavBottom />
-            <Footer />
-          </Providers>
+          <LanguageProvider>
+            <Providers>
+              <TopBanner/>
+              <Navbar />
+              <main className="min-h-screen">
+                <PageTransition>
+                  {children}
+                </PageTransition>
+              </main>
+              <NavBottom />
+              <Footer />
+            </Providers>
+          </LanguageProvider>
       </body>
     </html>
   );

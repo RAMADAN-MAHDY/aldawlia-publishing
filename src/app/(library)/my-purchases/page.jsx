@@ -3,19 +3,24 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, BookOpen, CheckCircle2, ShoppingCart, Download, Loader2, Clock, AlertCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, BookOpen, CheckCircle2, Download, Loader2, AlertCircle } from "lucide-react";
 import api from "@/app/api";
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
 import PageLoader from "@/app/loading";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const MyPurchasesPage = () => {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated } = useAuthStore();
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(false);
   const [downloadLinks, setDownloadLinks] = useState({}); // { bookId: "url" }
   const [timers, setTimers] = useState({});             // { bookId: secondsLeft }
   const [fetchingLink, setFetchingLink] = useState({}); // { bookId: true/false }
+  const isArabic = i18n.language?.startsWith("ar");
+  const dir = isArabic ? "rtl" : "ltr";
 
   const totalPrice = purchases.reduce((sum, purchase) => sum + (Number(purchase.book?.price) || 0), 0);
 
@@ -70,7 +75,7 @@ const MyPurchasesPage = () => {
       }
     } catch (err) {
       console.error("Download Error:", err.response?.data || err.message);
-      toast.error(err.response?.data?.message || "فشل الحصول على الرابط");
+      toast.error(err.response?.data?.message || t("my_purchases_page.download_link_failed"));
     } finally {
       setFetchingLink((prev) => ({ ...prev, [bookId]: false }));
     }
@@ -114,18 +119,18 @@ const MyPurchasesPage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[70vh] p-6 text-center" dir="rtl">
+      <div className="flex flex-col items-center justify-center min-h-[70vh] p-6 text-center" dir={dir}>
         <BookOpen size={80} className="text-gray-200 mb-4" />
-        <h2 className="text-xl font-bold text-gray-600">سجل دخولك لعرض مشترياتك</h2>
+        <h2 className="text-xl font-bold text-gray-600">{t("my_purchases_page.login_to_view")}</h2>
         <p className="text-gray-500 mt-2 max-w-md">
-          يمكنك عرض جميع الكتب التي اشتريتها بنجاح من هنا بعد تسجيل الدخول.
+          {t("my_purchases_page.login_description")}
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/login" className="bg-amber-600 text-white px-8 py-3 rounded-3xl font-bold shadow-lg hover:bg-sky-900 transition-colors">
-            تسجيل الدخول
+            {t("my_purchases_page.login")}
           </Link>
           <Link href="/register" className="border border-sky-900 text-sky-900 px-8 py-3 rounded-3xl font-bold hover:bg-sky-100 transition-colors">
-            إنشاء حساب
+            {t("my_purchases_page.create_account")}
           </Link>
         </div>
       </div>
@@ -137,7 +142,7 @@ const MyPurchasesPage = () => {
   }
 
   return (
-    <div className="bg-[#f8f8f8] min-h-screen pb-24" dir="rtl">
+    <div className={`bg-[#f8f8f8] min-h-screen pb-24 ${isArabic ? "text-right" : "text-left"}`} dir={dir}>
       <div className="bg-white/95 backdrop-blur-md sticky top-0 z-40 p-4 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <button
@@ -145,13 +150,13 @@ const MyPurchasesPage = () => {
             onClick={() => router.back()}
             className="text-sky-900 hover:text-amber-600 transition-all active:scale-95"
           >
-            <ArrowRight size={26} />
+            {isArabic ? <ArrowRight size={26} /> : <ArrowLeft size={26} />}
           </button>
           <div className="text-center">
             <h1 className="text-xl md:text-2xl font-black text-sky-900 flex items-center justify-center gap-2">
-              <BookOpen size={28} className="text-amber-600" /> مشترياتي
+              <BookOpen size={28} className="text-amber-600" /> {t("my_purchases_page.title")}
             </h1>
-            <p className="text-sm text-gray-500">عرض جميع الكتب التي اشتريتها بنجاح</p>
+            <p className="text-sm text-gray-500">{t("my_purchases_page.subtitle")}</p>
           </div>
           <div className="w-10" />
         </div>
@@ -160,17 +165,17 @@ const MyPurchasesPage = () => {
       <div className="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-            <p className="text-sm text-gray-500">عدد المشتريات</p>
+            <p className="text-sm text-gray-500">{t("my_purchases_page.stats_count")}</p>
             <h2 className="mt-3 text-3xl font-black text-sky-950">{purchases.length}</h2>
           </div>
           <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-            <p className="text-sm text-gray-500">إجمالي قيمة المشتريات</p>
-            <h2 className="mt-3 text-3xl font-black text-sky-950">{totalPrice.toLocaleString()} ج.م</h2>
+            <p className="text-sm text-gray-500">{t("my_purchases_page.stats_total")}</p>
+            <h2 className="mt-3 text-3xl font-black text-sky-950">{totalPrice.toLocaleString()} {t("my_purchases_page.currency")}</h2>
           </div>
           <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
-            <p className="text-sm text-gray-500">تصفح كامل مكتبتك</p>
+            <p className="text-sm text-gray-500">{t("my_purchases_page.stats_browse")}</p>
             <Link href="/" className="inline-flex items-center gap-2 mt-3 text-amber-600 font-bold hover:text-sky-900 transition-colors">
-              العودة إلى المتجر
+              {t("my_purchases_page.back_to_store")}
             </Link>
           </div>
         </div>
@@ -178,10 +183,10 @@ const MyPurchasesPage = () => {
         {purchases.length === 0 ? (
           <div className="bg-white rounded-[2rem] p-10 shadow-sm border border-gray-100 text-center">
             <BookOpen size={48} className="text-gray-200 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-700">لم تقم بأي شراء بعد</h2>
-            <p className="text-gray-500 mt-2">ابدأ الآن بتصفح الكتب وإضافة ما يعجبك إلى السلة.</p>
+            <h2 className="text-xl font-bold text-gray-700">{t("my_purchases_page.empty_title")}</h2>
+            <p className="text-gray-500 mt-2">{t("my_purchases_page.empty_description")}</p>
             <Link href="/" className="mt-6 inline-flex bg-amber-600 text-white px-8 py-3 rounded-3xl font-bold hover:bg-sky-900 transition-colors">
-              تصفح الكتب
+              {t("my_purchases_page.browse_books")}
             </Link>
           </div>
         ) : (
@@ -210,23 +215,23 @@ const MyPurchasesPage = () => {
 
                   <div className="flex flex-col justify-between gap-4">
                     <div>
-                      <span className="text-xs uppercase tracking-[0.2em] text-amber-500 font-bold">عملية شراء ناجحة</span>
+                      <span className="text-xs uppercase tracking-[0.2em] text-amber-500 font-bold">{t("my_purchases_page.purchase_successful")}</span>
                       <h3 className="mt-3 text-lg md:text-xl font-black text-sky-950 line-clamp-2">
-                        {purchase.book?.title || purchase.bookTitle || purchase.title || "كتاب غير معروف"}
+                        {purchase.book?.title || purchase.bookTitle || purchase.title || t("my_purchases_page.unknown_book")}
                       </h3>
                       <p className="mt-2 text-sm text-gray-500">
-                        رقم الكتاب: {purchase.book?.id || purchase.bookId || "غير متوفر"}
+                        {t("my_purchases_page.book_id")}: {purchase.book?.id || purchase.bookId || t("my_purchases_page.not_available")}
                       </p>
                       <p className="mt-1 text-sm text-gray-500">
-                        السعر: {
+                        {t("my_purchases_page.price")}: {
                           purchase.book?.price || purchase.price || purchase.amount 
-                            ? `${Number(purchase.book?.price || purchase.price || purchase.amount).toLocaleString()} ج.م` 
-                            : "غير متوفر"
+                            ? `${Number(purchase.book?.price || purchase.price || purchase.amount).toLocaleString()} ${t("my_purchases_page.currency")}` 
+                            : t("my_purchases_page.not_available")
                         }
                       </p>
                       {purchase.book === null && (
                         <p className="mt-2 text-xs text-orange-600 bg-orange-50 p-2 rounded-lg">
-                          ⚠️ بيانات الكتاب قيد التحديث، يرجى إعادة تحميل الصفحة
+                          {t("my_purchases_page.book_data_updating")}
                         </p>
                       )}
                     </div>
@@ -234,7 +239,7 @@ const MyPurchasesPage = () => {
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-2">
                         <div className="inline-flex items-center gap-2 rounded-full bg-green-50 text-green-700 px-4 py-2 text-xs font-black self-start">
-                          <CheckCircle2 size={16} /> تم تأكيد الملكية
+                          <CheckCircle2 size={16} /> {t("my_purchases_page.ownership_confirmed")}
                         </div>
 
                         <div className="flex items-center gap-2">
@@ -242,7 +247,7 @@ const MyPurchasesPage = () => {
                             href={`/book/${purchase.book?._id || purchase.bookId || purchase.book?.id}`}
                             className="p-3 rounded-2xl border border-gray-100 text-sky-900 hover:bg-gray-50 bg-white shadow-sm flex items-center gap-2 text-xs font-bold transition-all"
                           >
-                            <BookOpen size={16} /> عرض التفاصيل
+                            <BookOpen size={16} /> {t("my_purchases_page.view_details")}
                           </Link>
                         </div>
                       </div>
@@ -256,8 +261,8 @@ const MyPurchasesPage = () => {
                                   {formatTime(timers[purchase.book?._id || purchase.bookId || purchase.book?.id])}
                                 </div>
                                 <div>
-                                  <p className="text-[10px] text-amber-700 font-bold uppercase tracking-wider">رابط فعال الآن</p>
-                                  <p className="text-xs text-amber-900 font-medium tracking-tight">يرجى حفظ الملف فوراً.</p>
+                                  <p className="text-[10px] text-amber-700 font-bold uppercase tracking-wider">{t("my_purchases_page.link_active_now")}</p>
+                                  <p className="text-xs text-amber-900 font-medium tracking-tight">{t("my_purchases_page.save_file_now")}</p>
                                 </div>
                               </div>
                               <a 
@@ -266,7 +271,7 @@ const MyPurchasesPage = () => {
                                 rel="noopener noreferrer"
                                 className="bg-amber-600 text-white px-5 py-2 rounded-xl font-bold text-xs flex items-center gap-2 shadow-md hover:bg-amber-700 transition-all shadow-amber-100"
                               >
-                                <Download size={14} /> استلام الملف
+                                <Download size={14} /> {t("my_purchases_page.receive_file")}
                               </a>
                             </div>
                           </div>
@@ -276,8 +281,8 @@ const MyPurchasesPage = () => {
                               <CheckCircle2 size={20} />
                             </div>
                             <div>
-                                <p className="text-[10px] font-bold uppercase tracking-wider">تم التحميل مسبقاً</p>
-                                <p className="text-xs font-medium">تم استهلاك رابط التحميل المؤقت لهذا الكتاب.</p>
+                                <p className="text-[10px] font-bold uppercase tracking-wider">{t("my_purchases_page.downloaded_before")}</p>
+                                <p className="text-xs font-medium">{t("my_purchases_page.download_link_used")}</p>
                             </div>
                           </div>
                         ) : (
@@ -291,14 +296,14 @@ const MyPurchasesPage = () => {
                             ) : (
                               <Download size={20} className="group-hover:translate-y-0.5 transition-transform" />
                             )}
-                            تحميل الكتاب المباشر (PDF)
+                            {t("my_purchases_page.download_pdf")}
                           </button>
                         )}
                         <p className="text-[10px] text-gray-400 mt-3 flex items-center gap-1">
                           <AlertCircle size={10} /> 
                           {!purchase.isDownloaded 
-                            ? "ملاحظة: يمكنك إصدار رابط تحميل واحد فقط لكل عملية شراء." 
-                            : "لديك 5 دقائق لتحميل الملف بعد الضغط على الزر لأول مرة."}
+                            ? t("my_purchases_page.note_one_link")
+                            : t("my_purchases_page.note_five_minutes")}
                         </p>
                       </div>
                     </div>

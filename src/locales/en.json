@@ -1,0 +1,634 @@
+{
+  "navbar": {
+    "about": "About Us",
+    "contact": "Contact Us",
+    "search": "Search books...",
+    "login": "Login",
+    "logout": "Logout",
+    "favorites": "Favorites",
+    "cart": "Cart",
+    "my_purchases": "Purchases",
+    "home": "Home",
+    "register": "Register",
+    "welcome": "Hello,"
+  },
+  "footer_main": {
+    "quick_links": "Quick Links",
+    "home": "Home",
+    "about": "About Us",
+    "hikma": "Hikma Institute",
+    "distribution": "Strategic Studies Foundation",
+    "directory": "Islamic Business Directory",
+    "follow_us": "Follow & Contact Us",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "whatsapp": "WhatsApp",
+    "about_title": "International <0>Publishing House</0>",
+    "about_desc": "A platform specialized in publishing and distributing e-books and strategic research. We are interested in delivering knowledge to every reader easily and safely through a unique and reliable digital experience.",
+    "rights": "All rights reserved",
+    "default_text": "© {{year}} International Publishing."
+  },
+  "top_banner": "Welcome to International Distribution and Publishing _ The house of thought, the cradle of creativity, and a bridge connecting the word with analysis and the book with development.",
+  "about": {
+    "title": "International House for Distribution and Publishing",
+    "motto": "\"Horizons towards eternity... Knowledge without restrictions... Ideas without limits!\"",
+    "subtitle1": "Where ideas turn into books, and books into inspiring journeys for minds and hearts.",
+    "subtitle2": "We author, publish, and distribute – to reach your message to every reader everywhere.",
+    "subtitle3": "✨ From literary creativity to scientific and strategic studies, we are pioneers in the knowledge industry.",
+    "subtitle4": "📖 With us, your book is not just pages, but a window that illuminates minds.",
+    "subtitle5": "🤝 We support authors, elevate ideas, and provide content that enriches society.",
+    "subtitle6": "🚀 Follow us now and be part of the world of creativity and limitless knowledge.",
+    "who_we_are": {
+      "title": "Who We Are",
+      "description1": "<0>International House for Publishing and Distribution was established in 1987</0> in the state of New Jersey. It is considered one of the first Arab and Islamic publishing houses in the United States of America, with approximately <1>200 books</1> in all fields of publishing, whether Islamic, literary, political, or comparative religion, as well as children's books in Arabic, English, and Spanish.",
+      "description2": "One of its most famous publications is the <0>Islamic Business Directory</0>, which has been published in the Eastern United States from 1990 until 2025."
+    },
+    "structure": {
+      "title": "Parent Organization: International House for Distribution",
+      "subtitle": "International House for Publishing & Strategic Studies",
+      "item1_title": "International House for Publishing and Distribution",
+      "item1_desc": "Publishing books and studies (politics, civilization, philosophy, geopolitics, future studies, literature).",
+      "item2_title": "Feasibility Studies Foundation",
+      "item2_desc": "Economic studies, market analysis, project evaluation, investment consulting.",
+      "item3_title": "Hikma Institute for Studies (IWI)",
+      "item3_subtitle": "\"The intellectual heart of the organization\"",
+      "item3_desc": "Geopolitics, international system, strategic security, and the future of the world order."
+    },
+    "units": {
+      "title": "Additional Strategic Units",
+      "items": [
+        "Geopolitical Studies Unit",
+        "Future Studies Unit",
+        "Conflict Analysis Unit",
+        "Strategic Security Unit"
+      ]
+    },
+    "vision": {
+      "title": "Mission and Vision",
+      "desc": "Producing solid strategic knowledge to become a leading international intellectual platform that connects hearts with minds."
+    },
+    "values": {
+      "title": "Intellectual Values",
+      "desc": "Strategic Wisdom | Intellectual Independence | Analytical Depth",
+      "motto": "We combine authenticity and modernity in delivering the voice of wisdom."
+    },
+    "school": {
+      "title": "School of Balanced Strategic Realism",
+      "desc": "Our intellectual approach combines geopolitics and analysis of power balances to build a comprehensive vision for the future.",
+      "items": [
+        "Power Balances",
+        "Geopolitics",
+        "Major Shifts",
+        "Future Scenarios"
+      ]
+    },
+    "goals": {
+      "title": "Shared Strategic Goals",
+      "items": [
+        "Elevating the publishing industry globally.",
+        "Publishing religious and scientific works that enhance identity.",
+        "Empowering young writers and creating new creators.",
+        "Expanding the circle of distribution geographically and digitally.",
+        "Combining authenticity and modernity in content.",
+        "Enriching the strategic thought of the researcher and decision-maker."
+      ]
+    },
+    "footer": {
+      "quote": "\"Wisdom in understanding power... and insight in anticipating the future\"",
+      "rights": "© International House for Publishing and Distribution - All rights reserved",
+      "location": "USA - NY - NJ",
+      "phone": "201-705-9422",
+      "email1": "contact@aldawlia-publishing.com",
+      "email2": "intpbhouse@gmail.com"
+    }
+  },
+  "aldawlia_distribution": {
+    "back_home": "Back to Home",
+    "section_tag": "International Distribution & Publishing",
+    "hero_title": "Strategic Feasibility Studies",
+    "hero_subtitle": "International Foundation: We help you transform your idea into a successful realistic project with calculated steps.",
+    "intro_p1": "We rely on accurate studies and comprehensive market analysis to ensure informed decisions based on facts and figures.",
+    "intro_p2": "Turn your idea into a successful project; we provide you with a comprehensive study that helps you make the right decision at the right time.",
+    "vision_title": "International Foundation for Feasibility Studies",
+    "vision_desc": "In a fast-changing world like New York and New Jersey, project success is no longer based on enthusiasm alone... but on precise planning, smart analysis, and correct decision-making.",
+    "importance": {
+      "title": "Why are feasibility studies important?",
+      "desc": "Many projects start with a great idea... but they fail due to the lack of a clear vision. A feasibility study is an integrated roadmap that helps you understand:",
+      "items": [
+        "Is your project viable for success?",
+        "How much capital do you need?",
+        "What is the expected volume of profits?",
+        "Who are the competitors?",
+        "And what are the potential risks?"
+      ]
+    },
+    "offering": {
+      "title": "What do we offer you?",
+      "desc": "We don't just provide a report... we provide a complete strategic vision that includes:",
+      "items": [
+        {
+          "t": "Market Study",
+          "d": "Comprehensive analysis of the target market, demand, and customers."
+        },
+        {
+          "t": "Financial Study",
+          "d": "Costs, revenues, profits, and break-even analysis."
+        },
+        {
+          "t": "Operational Study",
+          "d": "A clear plan for human resources, equipment, and workflow."
+        },
+        {
+          "t": "Risk Analysis",
+          "d": "Identifying potential challenges and developing practical solutions to avoid them."
+        }
+      ]
+    },
+    "message": {
+      "title": "✨ Our Message to You",
+      "desc": "Don't start your project on intuition alone... start it with science, a plan, and a clear vision that guarantees you success in the heart of New York and New Jersey."
+    },
+    "cta": {
+      "title": "Ready to turn your idea into a successful project?",
+      "desc": "Contact us now to discuss your idea and start your feasibility study with our experts in the US market.",
+      "button": "Contact to start the study",
+      "link": "Learn more about us"
+    }
+  },
+  "hikma_institute": {
+    "back": "Back",
+    "hero": {
+        "title": "International Wisdom Institute for Strategic Studies",
+        "motto": "\"Wisdom of Vision.. Power of Analysis\"",
+        "identity_label": "New Institutional Identity:",
+        "official_name": "Official Name: International Wisdom Institute (IWI)",
+        "legal_affiliation": "Legal Affiliation: Research and Studies wing of International House for Distribution LLC",
+        "english_name": "International Wisdom Institute (IWI)",
+        "english_subtitle": "Strategic & Geopolitical Studies"
+      },
+    "core_idea": {
+      "title": "First: The Core Idea of the Institute",
+      "desc": "The institute is based on studying global shifts in politics, strategy, and geopolitics, with a focus on understanding international power balances and formulating intellectual visions that help in reading the future.",
+      "focus_label": "The institute focuses on combining:",
+      "items": [
+        "Intellectual Wisdom",
+        "Strategic Analysis",
+        "Reading Geopolitical Shifts"
+      ],
+      "footer_desc": "In order to provide deep insights that help researchers, decision-makers, and communities understand the changing world."
+    },
+    "about": {
+      "title": "About the Institute",
+      "desc": "International Wisdom Institute (IWI) is an independent think tank concerned with strategic and geopolitical studies, aimed at understanding major shifts in the international system and analyzing power dynamics and global balances."
+    },
+    "vision": {
+      "title": "Vision",
+      "desc": "A leading international intellectual platform in strategic studies, contributing to building a deeper understanding of global shifts and formulating balanced future visions."
+    },
+    "mission": {
+      "title": "Mission",
+      "desc": "Providing high-level strategic studies and analyses on international and geopolitical issues, and promoting a culture of strategic thinking and political wisdom."
+    },
+    "values": {
+      "title": "Core Values",
+      "desc": "Intellectual Independence | Scientific Objectivity | Strategic Thinking | Wisdom in Analysis | Openness to Global Dialogue"
+    },
+    "objectives": {
+      "title": "Strategic Objectives",
+      "items": [
+        "Developing strategic and geopolitical studies.",
+        "Analyzing shifts in the international system and power balances.",
+        "Providing insights to understand international conflicts and alliances.",
+        "Supporting intellectual dialogue on the future of international relations.",
+        "Producing research and studies that serve decision-makers and researchers.",
+        "Building an international network of researchers, thinkers, and experts."
+      ]
+    },
+    "domains": {
+      "title": "Research Domains",
+      "items": [
+        "Geopolitics",
+        "International Strategy",
+        "Global System Shifts",
+        "International Security",
+        "Geopolitical Economy",
+        "Power and Influence Studies"
+      ]
+    },
+    "activities": {
+      "title": "Activities",
+      "items": [
+        "Issuing specialized periodic strategic studies and reports.",
+        "Organizing international intellectual conferences, seminars, and workshops.",
+        "Publishing solid analytical articles and building platforms for intellectual dialogue.",
+        "Training and qualifying young researchers in the fields of strategic thinking."
+      ]
+    },
+    "departments": {
+      "title": "Research Departments of the Institute",
+      "main": [
+        {
+          "t": "Geopolitical Studies Department",
+          "s": "Studying the impact of geography on policy making.",
+          "i": [
+            "Analysis of geopolitical balances",
+            "Studying spheres of influence and conflict"
+          ]
+        },
+        {
+          "t": "Strategic Studies Department",
+          "s": "Analyzing international and military strategies.",
+          "i": [
+            "Analysis of international strategies",
+            "Evaluation of national security policies"
+          ]
+        },
+        {
+          "t": "International System Studies Department",
+          "s": "Studying the evolution of the international system and power shifts.",
+          "i": [
+            "Studying the contemporary international system",
+            "Analyzing the rise and fall of powers"
+          ]
+        }
+      ],
+      "others": [
+        {
+          "n": "International Security",
+          "t": "Regional security, terrorism, and cybersecurity."
+        },
+        {
+          "n": "Geopolitical Economy",
+          "t": "Political economy, economic conflicts, and resources."
+        },
+        {
+          "n": "Future Studies",
+          "t": "Building scenarios and anticipating shifts."
+        },
+        {
+          "n": "Thought and Wisdom",
+          "t": "Philosophy of power and contemporary strategic thought."
+        }
+      ]
+    },
+    "specialized_units": {
+      "title": "Specialized Strategic Units",
+      "items": [
+        {
+          "t": "1️⃣ International Crisis Analysis Unit",
+          "d": "Monitoring crises, providing position estimates, and studying possible scenarios."
+        },
+        {
+          "t": "2️⃣ Regional Studies Unit",
+          "d": "Balances in the Middle East, Asia, Europe, Africa, and the Americas."
+        },
+        {
+          "t": "3️⃣ Strategic Reports Unit",
+          "d": "Annual geopolitical report, global risk report, and power balances."
+        },
+        {
+          "t": "4️⃣ Geopolitical Mapping Unit",
+          "d": "Producing maps of spheres of influence, military alliances, energy, and global resources."
+        },
+        {
+          "t": "5️⃣ Data and Analysis Unit",
+          "d": "Building comprehensive strategic databases and analyzing global trends."
+        }
+      ]
+    },
+    "future": {
+      "title": "The Next Phase: Prestige and Institutional Structure",
+      "items": [
+        "Board of Trustees",
+        "Scientific Council",
+        "Executive Director",
+        "International Advisory Council",
+        "Researcher Body",
+        "Institute Scientific Journal",
+        "Series of Publications",
+        "Training Center",
+        "International Dialogue Center",
+        "Publishing Unit"
+      ]
+    },
+    "footer": {
+      "rights1": "Research and Studies wing of International House for Distribution LLC © 2026",
+      "rights2": "All rights reserved to International Wisdom Institute"
+    }
+  },
+  "islamic_business": {
+    "hero": {
+      "title": "Islamic Business <0>Directory</0>",
+      "subtitle": "Your guide to reliable businesses from your community",
+      "description": "Discover the best services and professions from Arabs and Muslims in your area. We have been connecting business owners with their target audience since 1990.",
+      "points": [
+        "The directory covers all areas of the Eastern United States and is distributed free of charge to Islamic centers and institutions.",
+        "We are the trusted bridge connecting the Arab community with the best professional and commercial service providers."
+      ],
+      "cta": "Browse Directory"
+    },
+    "about": {
+      "title": "About Islamic Business Directory",
+      "desc_italic": "The directory is issued under the auspices of both the Islamic Center in Bay Ridge, Brooklyn, New York, and the International House for Publishing and Distribution in New Jersey.",
+      "items": [
+        "The Muslim Business Directory covers the east of the United States",
+        "The directory is distributed free of charge to Arab and Islamic shops, Islamic centers and institutions act.",
+        "The Muslim BUSINESS DIRECTORY is issued of each year.",
+        "The first issue of The Muslim BUSINESS DIRECTORY was in 1990."
+      ],
+      "arabic_points": [
+        "- The directory is issued under the auspices of both the Islamic Center in Bay Ridge, Brooklyn, New York, and the International House for Publishing and Distribution in New Jersey.",
+        "- The Islamic Business Directory covers the Eastern United States.",
+        "- The directory is distributed free of charge to Arab and Islamic shops and to Islamic centers and institutions.",
+        "- The directory is issued every year.",
+        "- The first issue of the directory was in 1990 and continues to be issued until now, 2026."
+      ],
+      "contact_label": "If you have any questions, feel free to contact us:",
+      "contact_number": "201-705-9422"
+    },
+    "owner": {
+      "title": "🧾 Business Owner",
+      "steps": [
+        "Enter the directory section",
+        "Create an account",
+        "Add business activity",
+        "Appear in the directory",
+        "Get customers"
+      ],
+      "cta": "Add your activity and browse the directory"
+    },
+    "distribution": {
+      "title": "Distribution Services",
+      "subtitle": "We reach your product to your audience",
+      "desc": "An effective distribution network covering local markets.",
+      "cta": "Request Distribution Service"
+    },
+    "feasibility": {
+      "title": "Feasibility Studies",
+      "desc": "We help you turn your idea into a realistic project through accurate studies and comprehensive market analysis, to ensure informed decisions.",
+      "footer_title": "Turn your idea into a successful project",
+      "footer_desc": "We provide you with a comprehensive study that helps you make the right decision."
+    },
+    "detailed_feasibility": {
+      "title": "International Foundation for Feasibility Studies",
+      "desc": "In a fast-changing world like New York and New Jersey, project success is no longer based on enthusiasm alone... but on precise planning, smart analysis, and correct decision-making at the right time.",
+      "importance_title": "💡 Why are feasibility studies important?",
+      "importance_desc": "Many projects start with a great idea... but they fail due to the lack of a clear vision. A feasibility study is an integrated roadmap that helps you understand: Is your project viable for success? How much capital do you need? What is the expected volume of profits? Who are the competitors? And what are the potential risks?",
+      "offering_title": "🔍 What do we offer you?",
+      "offering_items": [
+        "✔️ Market Study (demand analysis and customer behavior)",
+        "✔️ Financial Study (costs, revenues, and break-even point)",
+        "✔️ Operational Study (resources, equipment, and workflow)",
+        "✔️ Risk Analysis and final recommendations"
+      ],
+      "cta_title": "Turn your idea into a successful project",
+      "cta_desc": "Don't start your project on intuition alone... start it with science, a plan, and a clear vision.",
+      "cta_button": "Request a feasibility study now"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "loading": "Loading your cart...",
+    "empty": "Your cart is empty",
+    "login_to_continue": "Log in to continue shopping",
+    "login": "Login",
+    "currency": "EGP",
+    "total_amount": "Total Amount",
+    "complete_purchase": "Complete Purchase Now",
+    "card_details": "Card Details",
+    "back": "Back",
+    "complete_payment": "Complete Payment",
+    "wallet_option": "E-Wallet (Phone Cash)",
+    "paymob_card_option": "Bank Card (Paymob)",
+    "stripe_card_option": "Bank Card (Stripe)",
+    "wallet_phone_placeholder": "Wallet phone number",
+    "processing": "Processing...",
+    "confirm_pay": "Confirm and Pay",
+    "cancel": "Cancel",
+    "enter_wallet_phone": "Please enter wallet phone number",
+    "wallet_phone_validation": "Wallet number must be at least 10 digits (example: 01012345678)",
+    "book_data_incomplete": "Book data is incomplete in cart",
+    "wallet_payment_failed": "Wallet payment failed. Please try again or choose card payment.",
+    "payment_start_failed": "Failed to start payment process"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "login_to_view": "Log in to view your favorites",
+    "login": "Login",
+    "empty": "Your favorites list is currently empty",
+    "browse_sections": "Browse Sections",
+    "currency": "EGP",
+    "add_to_cart": "To Cart",
+    "remove": "Remove",
+    "name_not_available": "Name not available"
+  },
+  "my_purchases_page": {
+    "title": "My Purchases",
+    "subtitle": "View all books you have purchased successfully",
+    "login_to_view": "Log in to view your purchases",
+    "login_description": "You can view all books you purchased successfully here after logging in.",
+    "login": "Login",
+    "create_account": "Create Account",
+    "stats_count": "Purchases Count",
+    "stats_total": "Total Purchase Value",
+    "stats_browse": "Browse your full library",
+    "back_to_store": "Back to Store",
+    "currency": "EGP",
+    "empty_title": "You have not made any purchases yet",
+    "empty_description": "Start browsing books now and add what you like to the cart.",
+    "browse_books": "Browse Books",
+    "purchase_successful": "Successful Purchase",
+    "book_id": "Book ID",
+    "price": "Price",
+    "not_available": "Not available",
+    "unknown_book": "Unknown book",
+    "book_data_updating": "⚠️ Book data is being updated, please refresh the page",
+    "ownership_confirmed": "Ownership Confirmed",
+    "view_details": "View Details",
+    "link_active_now": "Link active now",
+    "save_file_now": "Please save the file immediately.",
+    "receive_file": "Receive File",
+    "downloaded_before": "Downloaded before",
+    "download_link_used": "The temporary download link for this book has already been used.",
+    "download_pdf": "Direct Book Download (PDF)",
+    "note_one_link": "Note: You can issue only one download link per purchase.",
+    "note_five_minutes": "You have 5 minutes to download the file after pressing the button for the first time.",
+    "download_link_failed": "Failed to get download link"
+  },
+  "search_page": {
+    "trending_title": "Most in-demand and trending releases",
+    "popular_title": "Readers' most favorite books",
+    "latest_title": "Latest releases in the library",
+    "results_for": "Search results for:",
+    "login_for_favorites": "Log in to add favorites",
+    "empty_title": "Sorry, this list is currently empty",
+    "empty_description": "It looks like there is not enough data to display in this section right now. You can explore the rest of the store sections!",
+    "back_home": "Back to home",
+    "favorites": "Favorites",
+    "explore_more": "Explore details and more..."
+  },
+  "offers_page": {
+    "title": "Our Strong Offers",
+    "subtitle": "Best prices for a limited time",
+    "loading": "Loading the best offers...",
+    "login_first": "Please log in first",
+    "login_for_favorites": "Log in to add favorites",
+    "add_cart_failed": "Failed to add book to cart",
+    "discount": "Discount",
+    "explore_more": "Explore details and more...",
+    "currency": "EGP",
+    "add": "Add",
+    "empty": "No offers available right now, wait for our next surprises!"
+  },
+  "trending_page": {
+    "title": "Most in Demand Now",
+    "loading": "Loading...",
+    "login_for_favorites": "Log in to add favorites",
+    "hot_now": "HOT NOW"
+  },
+  "popular_page": {
+    "title": "Most Favorite",
+    "loading": "Loading...",
+    "added_to_favorites": "Added to favorites",
+    "explore_more": "Explore details and more..."
+  },
+  "book_page": {
+    "download_started": "Download started!",
+    "download_link_failed": "Failed to get download link",
+    "enter_wallet_phone": "Please enter wallet phone number",
+    "payment_start_failed": "Failed to start payment process",
+    "login_first": "Please log in first",
+    "add_to_cart_failed": "Failed to add product to cart",
+    "not_found": "Sorry, the book was not found",
+    "go_back": "Go back",
+    "details_title": "Release Details",
+    "owned": "Owned",
+    "general": "General",
+    "book": "Book",
+    "you_own_it": "You own it",
+    "free": "Free",
+    "currency_full": "Egyptian Pound",
+    "summary": "Summary",
+    "buy_now": "Buy Now",
+    "download_book": "Download Book",
+    "in_your_library": "In your library",
+    "add_to_cart": "Add to cart",
+    "card_details": "Card details",
+    "back_to_methods": "Back to methods",
+    "complete_payment": "Complete Payment",
+    "wallet_option": "E-Wallet (Phone Cash)",
+    "paymob_card_option": "Virtual Card (Paymob)",
+    "stripe_card_option": "Bank Card (Stripe)",
+    "wallet_phone_placeholder": "Wallet number",
+    "processing": "Processing...",
+    "confirm_pay": "Confirm and Pay",
+    "cancel": "Cancel"
+  },
+  "payment_status": {
+    "payment_failed_retry": "Payment failed, please try again",
+    "purchase_confirmed": "Congrats! Purchase has been confirmed successfully.",
+    "book_id_missing": "Sorry, we couldn't identify the book. Please try from 'My Library'",
+    "download_started": "Download started now...",
+    "download_link_failed": "Failed to get download link, please try from 'My Library'",
+    "verifying_title": "Verifying your purchase",
+    "verifying_description": "Please do not close this page, we are processing your request...",
+    "failed_title": "Payment was not completed",
+    "failed_description": "Sorry, we could not confirm your payment. If the amount was deducted, please contact support.",
+    "back_home": "Back to Home",
+    "success_badge": "Congratulations, your book is now available",
+    "success_title": "Payment Successful!",
+    "success_description_prefix": "Thank you for your trust. We have added",
+    "success_description_suffix": "to your private library. You can start reading now.",
+    "default_book": "the book",
+    "temporary_link_note": "This link is temporary and expires in 5 minutes for security. Please download now.",
+    "download_now": "Download Book Now (PDF)",
+    "link_expired_title": "Temporary link has expired",
+    "link_expired_description": "You can always generate a new link from the \"My Purchases\" page",
+    "go_to_library": "Go to My Library",
+    "transaction_id": "Transaction ID"
+  },
+  "auth_success": {
+    "auth_fetch_failed": "An error occurred while fetching account data",
+    "logging_in": "Logging in..."
+  },
+  "login_page": {
+    "title": "Login",
+    "email_placeholder": "Email",
+    "password_placeholder": "Password",
+    "loading": "Signing in...",
+    "submit": "Login",
+    "no_account": "Don't have an account?",
+    "create_account": "Create account",
+    "login_success": "Logged in successfully"
+  },
+  "register_page": {
+    "title": "Create Account",
+    "name_placeholder": "Name",
+    "email_placeholder": "Email",
+    "password_placeholder": "Password (at least 8 characters)",
+    "loading": "Creating account...",
+    "submit": "Create Account",
+    "have_account": "Already have an account?",
+    "login": "Login",
+    "name_validation": "Name is required and must be at least 2 characters",
+    "email_validation": "Invalid email address",
+    "password_validation": "Password must be at least 8 characters",
+    "register_success": "Account created successfully"
+  },
+  "category_page": {
+    "books": "Books",
+    "products": "Products",
+    "favorites": "Favorites",
+    "login_for_favorites": "Log in to add favorites",
+    "explore_more": "Explore details and more...",
+    "empty": "No products in this section right now.",
+    "go_to_page": "Go to page"
+  },
+  "home": {
+    "hikma_resume": {
+      "tag": "Welcome to",
+      "title": "International Wisdom Institute",
+      "desc": "We at Dar Al-Hikma strive to provide a leading educational and cultural environment, where we blend authenticity and development to provide the best scientific and literary publications that contribute to building an educated and conscious generation.",
+      "cta": "Learn More"
+    },
+    "islamic_resume": {
+      "tag": "Get to know",
+      "title": "Islamic Business Directory",
+      "desc": "A towering scientific edifice concerned with publishing foundational research and studies, aiming to revive the Islamic heritage and present it in a modern way that serves researchers.",
+      "cta": "More about the organization"
+    },
+    "quick_access": {
+      "title": "Discover Our Library",
+      "cta": "Learn More",
+      "items": {
+        "trending": {
+          "title": "Most Wanted",
+          "subtitle": "Discover the best-selling and most popular books currently in the publishing house"
+        },
+        "popular": {
+          "title": "Most Favorite",
+          "subtitle": "Elite books that have won the admiration and preference of our readers"
+        },
+        "offers": {
+          "title": "Special Offers",
+          "subtitle": "Exclusive discounts and special editions at competitive prices"
+        }
+      }
+    },
+    "category_grid": {
+      "title": "Book Sections",
+      "browse": "Browse books in this section",
+      "error": "An error occurred while loading sections"
+    },
+    "showcase": {
+      "latest_title": "Latest Releases",
+      "latest_slider": "New Releases",
+      "offers_title": "Best Offers",
+      "offers_slider": "Exclusive Discounts",
+      "view_all": "View All",
+      "explore": "Explore Details",
+      "currency": "EGP",
+      "general_release": "General Release"
+    }
+  }
+}

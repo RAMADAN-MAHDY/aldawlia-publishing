@@ -6,9 +6,13 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/app/api";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const PopularPage = () => {
+    const { t, i18n } = useTranslation();
     const [likedBooks, setLikedBooks] = useState({});
+    const isArabic = i18n.language?.startsWith("ar");
+    const dir = isArabic ? "rtl" : "ltr";
 
     const { data: books = [], isLoading } = useQuery({
         queryKey: ["popular-books-page"],
@@ -29,20 +33,20 @@ const PopularPage = () => {
         }));
 
         if (!likedBooks[id]) {
-            toast.success("تمت الإضافة للمفضلة");
+            toast.success(t("popular_page.added_to_favorites"));
         }
     };
 
-    if (isLoading) return <div className="py-24 text-center text-amber-600 font-black animate-bounce text-xl">جاري التحميل...</div>;
+    if (isLoading) return <div className="py-24 text-center text-amber-600 font-black animate-bounce text-xl">{t("popular_page.loading")}</div>;
 
     return (
-        <main className="min-h-screen bg-slate-50/50 py-16 px-4 text-right" dir="rtl">
+        <main className={`min-h-screen bg-slate-50/50 py-16 px-4 ${isArabic ? "text-right" : "text-left"}`} dir={dir}>
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col items-center mb-16 text-center">
                     <div className="p-3 bg-white rounded-2xl text-amber-600 mb-4 shadow-sm border border-slate-100">
                         <Star size={32} fill="currentColor" />
                     </div>
-                    <h1 className="text-3xl font-black text-sky-950">الأكثر تفضيلاً</h1>
+                    <h1 className="text-3xl font-black text-sky-950">{t("popular_page.title")}</h1>
                     <div className="w-12 h-1 bg-amber-600 mt-4 rounded-full"></div>
                 </div>
 
@@ -80,7 +84,7 @@ const PopularPage = () => {
                                         {book.title}
                                     </h3>
                                     <p className="text-amber-600 font-bold text-xs mt-auto">
-                                        استكشف التفاصيل والمزيد...
+                                        {t("popular_page.explore_more")}
                                     </p>
                                 </div>
                             </Link>

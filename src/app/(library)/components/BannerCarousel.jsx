@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function BannerCarousel() {
   const slides = useMemo(
     () => [
-      { src: "/bannerhome1.png", title: "Slide 1" },
+      { src: "/bannerhome1.webp", title: "Slide 1" },
       { src: "/bannerhome2.jpeg", title: "Slide 2" },
-      { src: "/bannerhome3.png", title: "Slide 3" },
-      { src: "/bannerhome4.png", title: "Slide 4" },
+      { src: "/bannerhome3.webp", title: "Slide 3" },
+      { src: "/bannerhome4.webp", title: "Slide 4" },
     ],
     []
   );

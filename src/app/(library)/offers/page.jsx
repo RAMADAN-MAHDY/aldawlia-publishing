@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import api from "@/app/api";
-import { ShoppingCart, Tag, ArrowRight, Heart } from "lucide-react"; // ضفنا Heart
+import { ShoppingCart, Tag, ArrowRight, ArrowLeft, Heart } from "lucide-react"; // ضفنا Heart
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/app/(library)/store/useCartStore";
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
@@ -9,13 +9,17 @@ import { useFavoritesStore } from "@/app/(library)/store/useFavoritesStore"; // 
 import { toast } from "react-toastify";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const OffersPage = () => {
+  const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { addToCart } = useCartStore();
-  const { user, isAuthenticated } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
+  const isArabic = i18n.language?.startsWith("ar");
+  const dir = isArabic ? "rtl" : "ltr";
   
   // دوال المفضلة
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavoritesStore();
@@ -42,7 +46,7 @@ const OffersPage = () => {
 
   const handleAdd = async (book) => {
     if (!isAuthenticated) {
-      toast.info("سجّل الدخول أولاً");
+      toast.info(t("offers_page.login_first"));
       return router.push("/login");
     }
     try {
@@ -50,7 +54,7 @@ const OffersPage = () => {
       
     } catch (error) {
       console.error("Add to cart failed:", error);
-      toast.error("فشل إضافة الكتاب للسلة");
+      toast.error(t("offers_page.add_cart_failed"));
     }
   };
 
@@ -59,7 +63,7 @@ const OffersPage = () => {
     e.preventDefault();
     e.stopPropagation();
     if (!isAuthenticated) {
-      toast.info("سجّل الدخول لإضافة المفضلة");
+      toast.info(t("offers_page.login_for_favorites"));
       return router.push("/login");
     }
 
@@ -73,12 +77,12 @@ const OffersPage = () => {
   if (loading)
     return (
       <div className="text-center py-20 font-bold text-amber-600 animate-pulse">
-        جاري تحميل أقوى العروض...
+        {t("offers_page.loading")}
       </div>
     );
 
   return (
-    <div className="bg-[#f8f8f8] min-h-screen pb-20" dir="rtl">
+    <div className={`bg-[#f8f8f8] min-h-screen pb-20 ${isArabic ? "text-right" : "text-left"}`} dir={dir}>
       {/* Header */}
       <div className="bg-sky-900 p-6 rounded-b-[40px] border-b-8 border-amber-600 shadow-lg text-white text-center relative">
         <button
@@ -90,13 +94,13 @@ const OffersPage = () => {
               router.push("/");
             }
           }}
-          className="absolute right-6 top-7 text-white/80 hover:text-amber-600 transition-all active:scale-95 z-50 cursor-pointer"
+          className={`absolute top-7 text-white/80 hover:text-amber-600 transition-all active:scale-95 z-50 cursor-pointer ${isArabic ? "right-6" : "left-6"}`}
         >
-          <ArrowRight size={28} />
+          {isArabic ? <ArrowRight size={28} /> : <ArrowLeft size={28} />}
         </button>
         <Tag className="mx-auto mb-2 text-amber-600" size={35} />
-        <h1 className="text-2xl font-black">عروضنا القوية</h1>
-        <p className="text-sm text-sky-200 mt-2">أفضل الأسعار لفترة محدودة</p>
+        <h1 className="text-2xl font-black">{t("offers_page.title")}</h1>
+        <p className="text-sm text-sky-200 mt-2">{t("offers_page.subtitle")}</p>
       </div>
 
       <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto mt-4">
@@ -113,7 +117,7 @@ const OffersPage = () => {
                 {/* نسبة الخصم */}
                 {product.discountPercent > 0 && (
                   <div className="absolute top-0 right-0 bg-amber-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-2xl z-10 shadow-sm">
-                    خصم {Math.round(product.discountPercent)}%
+                    {t("offers_page.discount")} {Math.round(product.discountPercent)}%
                   </div>
                 )}
 
@@ -145,7 +149,7 @@ const OffersPage = () => {
                     {product.title || product.name}
                   </h3>
                   <span className="text-[10px] text-amber-600 font-bold mt-2 hover:underline">
-                    استكشف التفاصيل والمزيد...
+                    {t("offers_page.explore_more")}
                   </span>
                 </Link>
 
@@ -153,11 +157,11 @@ const OffersPage = () => {
                 <div className="flex flex-col items-center my-2">
                   {product.discountPrice && product.discountPrice < product.price && (
                     <span className="text-gray-400 line-through text-[10px]">
-                      {product.price?.toLocaleString()} ج.م
+                      {product.price?.toLocaleString()} {t("offers_page.currency")}
                     </span>
                   )}
                   <span className="text-amber-600 font-black text-sm">
-                    {product.discountPrice?.toLocaleString() || product.price?.toLocaleString()} ج.م
+                    {product.discountPrice?.toLocaleString() || product.price?.toLocaleString()} {t("offers_page.currency")}
                   </span>
                 </div>
 
@@ -165,14 +169,14 @@ const OffersPage = () => {
                   onClick={() => handleAdd(product)}
                   className="w-full bg-sky-900 text-white py-2 rounded-2xl flex items-center justify-center gap-2 text-xs font-bold hover:bg-amber-600 transition-all shadow-sm"
                 >
-                  <ShoppingCart size={14} /> إضافة
+                  <ShoppingCart size={14} /> {t("offers_page.add")}
                 </button>
               </div>
             );
           })
         ) : (
           <div className="col-span-full text-center py-20 text-gray-500 font-bold">
-            لا توجد عروض حالياً، انتظر مفاجآتنا القادمة!
+            {t("offers_page.empty")}
           </div>
         )}
       </div>

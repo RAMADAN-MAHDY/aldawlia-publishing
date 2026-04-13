@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const TopBanner = () => {
-  const text =
-    "مرحبا بكم في الدولية للتوزيع والنشر _ بيت الفكر، ومهد الإبداع، وجسر يصل الحرف بالتحليل والكتاب بالتنمية.";
+  const { t, i18n } = useTranslation();
+  const text = t('top_banner');
 
   return (
     <div className="bg-sky-900 text-white py-2 overflow-hidden border-b-4 border-amber-600  select-none">
@@ -17,7 +18,7 @@ const TopBanner = () => {
         .marquee {
           overflow: hidden;
           width: 100%;
-          direction: rtl;
+          direction: ${i18n.language === 'ar' ? 'rtl' : 'ltr'};
           display: flex;
        
         }

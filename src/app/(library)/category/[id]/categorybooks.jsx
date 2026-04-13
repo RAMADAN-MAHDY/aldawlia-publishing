@@ -4,22 +4,24 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import api from "@/app/api";
-import { ShoppingCart, Plus, Minus, ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, ArrowLeft, Heart } from "lucide-react";
 import { toast } from "react-toastify";
 import PageLoader from "@/app/loading";
 // ✅ Stores
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
-import { useCartStore } from "@/app/(library)/store/useCartStore";
 import { useFavoritesStore } from "@/app/(library)/store/useFavoritesStore";
+import { useTranslation } from "react-i18next";
 
 const CategoryProducts = () => {
   const { id } = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t, i18n } = useTranslation();
   const categoryNameFromQuery = searchParams.get("name");
-  const { user, isAuthenticated } = useAuthStore();
-  const { addToCart } = useCartStore();
+  const { isAuthenticated } = useAuthStore();
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavoritesStore();
+  const isArabic = i18n.language?.startsWith("ar");
+  const dir = isArabic ? "rtl" : "ltr";
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [loading, setLoading] = useState(true);
@@ -45,7 +47,7 @@ const CategoryProducts = () => {
       });
       return {
         products: response.data.data || [],
-        categoryName: categoryNameFromQuery || "الكتب",
+        categoryName: categoryNameFromQuery || t("category_page.books"),
         totalPages: response.data.pagination?.totalPages || 1,
       };
     },
@@ -59,7 +61,7 @@ const CategoryProducts = () => {
 
     const realProducts = queryData.products || [];
     setProducts(realProducts);
-    setCategoryName(queryData.categoryName || categoryNameFromQuery || "الكتب");
+    setCategoryName(queryData.categoryName || categoryNameFromQuery || t("category_page.books"));
 
     const tp =
       queryData?.totalPages ??
@@ -75,7 +77,7 @@ const CategoryProducts = () => {
   const toggleFavorite = async (e, bookId) => {
     e.stopPropagation();
     if (!isAuthenticated) {
-      toast.info("سجّل الدخول لإضافة المفضلة");
+      toast.info(t("category_page.login_for_favorites"));
       return router.push("/login");
     }
 
@@ -89,7 +91,7 @@ const CategoryProducts = () => {
   if (loading) return <PageLoader/>;
 
   return (
-    <div className="bg-[#f8f8f8] min-h-screen pb-24" dir="rtl">
+    <div className={`bg-[#f8f8f8] min-h-screen pb-24 ${isArabic ? "text-right" : "text-left"}`} dir={dir}>
 
       {/* عنوان القسم */}
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
@@ -98,11 +100,11 @@ const CategoryProducts = () => {
           onClick={() => router.back()}
           className="bg-gray-50 text-sky-900 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-sky-50 transition-all shadow-sm active:scale-95 cursor-pointer z-[9999]"
         >
-          <ArrowRight size={20} />
+          {isArabic ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
         </button>
 
         <h1 className="text-sky-900 font-extrabold text-xl md:text-2xl flex-1 text-center">
-          {categoryName || "المنتجات"}
+          {categoryName || t("category_page.products")}
         </h1>
 
         <div className="w-10" />
@@ -124,7 +126,7 @@ const CategoryProducts = () => {
               <button
                 onClick={(e) => toggleFavorite(e, product.id)}
                 className="absolute top-3 right-3 bg-white/90 p-1.5 rounded-full z-10 text-sky-900 hover:text-amber-600 hover:bg-sky-50 transition-colors shadow-sm"
-                title="المفضلة"
+                title={t("category_page.favorites")}
               >
                 <Heart size={16} fill={isFavorite(product.id) ? "currentColor" : "none"} className={isFavorite(product.id) ? "text-amber-600" : ""} />
               </button>
@@ -151,14 +153,14 @@ const CategoryProducts = () => {
                   {product.title || product.name}
                 </h3>
                 <span className="text-[10px] text-amber-600 font-bold mt-2 flex items-center gap-1 hover:underline">
-                  استكشف التفاصيل والمزيد...
+                  {t("category_page.explore_more")}
                 </span>
               </div>
             </div>
           ))
         ) : (
           <div className="text-center py-20 text-gray-500 font-bold w-full">
-            لا توجد منتجات في هذا القسم حالياً.
+            {t("category_page.empty")}
           </div>
         )}
       </div>
@@ -170,7 +172,7 @@ const CategoryProducts = () => {
               key={i}
               onClick={() => setPage(i + 1)}
               className={`w-3 h-3 rounded-full transition-colors duration-300 ${page === i + 1 ? "bg-sky-900" : "bg-gray-300"}`}
-              aria-label={`اذهب إلى الصفحة ${i + 1}`}
+              aria-label={`${t("category_page.go_to_page")} ${i + 1}`}
             />
           ))}
         </div>

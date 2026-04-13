@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import CategoryGrid from "./components/categoriesgrid";
 import BannerCarousel from "./components/BannerCarousel";
+import HomeShowcase from "./components/HomeShowcase";
 import QuickAccessLinks from "./components/QuickAccessLinks";
 import HikmaResume from "./components/hikma resume";
 import IslamicResume from "./components/islamic resume";
@@ -15,13 +16,15 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 overflow-hidden">
-      {/* 1. البانر: شيلنا الـ motion.div التقيل وخليناه عادي لأن البانر نفسه جواه أنميشن */}
-      <div className="max-w-7xl mx-auto px-4">
+    <main className="min-h-screen bg-gray-50 overflow-hidden flex flex-col gap-8 md:gap-10">
+      <div className="w-full">
         <BannerCarousel />
       </div>
 
-      {/* 2. السكاشن الباقية: استخدمنا motion.section عشان المتصفح يفهم التقسيم */}
+      <motion.section {...fadeInVariant} className="relative z-10">
+        <HomeShowcase />
+      </motion.section>
+
       <motion.section {...fadeInVariant}>
         <CategoryGrid />
       </motion.section>

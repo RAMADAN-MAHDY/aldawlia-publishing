@@ -5,7 +5,7 @@ import api from "@/app/api";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import {
-    ArrowRight, Download, Heart, ShoppingCart, Star,
+    ArrowRight, ArrowLeft, Download, Heart, ShoppingCart,
     CreditCard, Smartphone, CheckCircle, Info, Lock, X
 } from "lucide-react";
 import { useFavoritesStore } from "@/app/(library)/store/useFavoritesStore";
@@ -16,12 +16,14 @@ import Image from "next/image";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from "@/app/(library)/components/CheckoutForm";
+import { useTranslation } from "react-i18next";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const BookDetails = () => {
     const { id } = useParams();
     const router = useRouter();
+    const { t, i18n } = useTranslation();
     const { isAuthenticated } = useAuthStore();
     const { isFavorite, addToFavorites, removeFromFavorites } = useFavoritesStore();
     const { addToCart } = useCartStore();
@@ -32,6 +34,8 @@ const BookDetails = () => {
     const [paymentMethod, setPaymentMethod] = useState("card"); // 'card' or 'wallet'
     const [processing, setProcessing] = useState(false);
     const [clientSecret, setClientSecret] = useState("");
+    const isArabic = i18n.language?.startsWith("ar");
+    const dir = isArabic ? "rtl" : "ltr";
 
     const { data: book, isLoading, error } = useQuery({
         queryKey: ["book", id],
@@ -48,9 +52,9 @@ const BookDetails = () => {
             const response = await api.get(`/files/${id}/download-link`);
             const downloadUrl = response.data.data.url || response.data.data;
             window.open(downloadUrl, "_blank");
-            toast.success("تم بدء التحميل!");
+            toast.success(t("book_page.download_started"));
         } catch (err) {
-            toast.error(err.response?.data?.message || "فشل الحصول على رابط التحميل");
+            toast.error(err.response?.data?.message || t("book_page.download_link_failed"));
         } finally {
             setProcessing(false);
         }
@@ -58,7 +62,7 @@ const BookDetails = () => {
 
     const startPayment = async () => {
         if (paymentProvider === 'paymob' && paymentMethod === 'wallet' && !phoneNumber) {
-            return toast.error("يرجى إدخال رقم الهاتف للمحفظة");
+            return toast.error(t("book_page.enter_wallet_phone"));
         }
 
         const paymentData = {
@@ -84,7 +88,7 @@ const BookDetails = () => {
                 setRedirectionUrl(data.data.redirectionUrl);
             }
         } catch (err) {
-            toast.error(err.response?.data?.message || "فشل في بدء عملية الدفع");
+            toast.error(err.response?.data?.message || t("book_page.payment_start_failed"));
         } finally {
             setProcessing(false);
         }
@@ -92,7 +96,7 @@ const BookDetails = () => {
 
     const handleAction = () => {
         if (!isAuthenticated) {
-            toast.info("يرجى تسجيل الدخول أولاً");
+            toast.info(t("book_page.login_first"));
             return router.push("/login");
         }
         if (book.price === 0 || book.isPurchased) {
@@ -104,13 +108,13 @@ const BookDetails = () => {
 
     const handleAddToCart = async () => {
         if (!isAuthenticated) {
-            toast.info("يرجى تسجيل الدخول أولاً");
+            toast.info(t("book_page.login_first"));
             return router.push("/login");
         }
         try {
             await addToCart(id);
         } catch (err) {
-            toast.error(err.response?.data?.message || "فشل إضافة المنتج للسلة");
+            toast.error(err.response?.data?.message || t("book_page.add_to_cart_failed"));
         }
     };
 
@@ -123,25 +127,25 @@ const BookDetails = () => {
     if (!book || error) return (
         <div className="flex flex-col items-center justify-center min-h-screen text-center p-6">
             <Info size={64} className="text-gray-300 mb-4" />
-            <h1 className="text-xl font-bold text-gray-800">عذراً، لم يتم العثور على الكتاب</h1>
-            <button onClick={() => router.back()} className="mt-4 text-sky-900 border-b border-sky-900">العودة للخلف</button>
+            <h1 className="text-xl font-bold text-gray-800">{t("book_page.not_found")}</h1>
+            <button onClick={() => router.back()} className="mt-4 text-sky-900 border-b border-sky-900">{t("book_page.go_back")}</button>
         </div>
     );
 
     const isPaidAndNotOwned = book.price > 0 && !book.isPurchased;
 
     return (
-        <div className="bg-white min-h-screen pb-20" dir="rtl">
+        <div className={`bg-white min-h-screen pb-20 ${isArabic ? "text-right" : "text-left"}`} dir={dir}>
             <div className="bg-white/80 backdrop-blur-xl sticky top-0 z-[200] p-3 border-b border-gray-100">
                 <div className="max-w-7xl mx-auto flex items-center justify-center relative">
                     <button
                         onClick={() => router.back()}
-                        className="absolute right-0 text-amber-600 w-10 h-10 rounded-xl flex items-center justify-center shadow-sm active:scale-95 transition-all"
+                        className={`absolute text-amber-600 w-10 h-10 rounded-xl flex items-center justify-center shadow-sm active:scale-95 transition-all ${isArabic ? "right-0" : "left-0"}`}
                     >
-                        <ArrowRight size={20} />
+                        {isArabic ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
                     </button>
                     <h1 className="text-gray-900 font-bold text-base truncate max-w-[200px] text-center">
-                        تفاصيل الإصدار
+                        {t("book_page.details_title")}
                     </h1>
                 </div>
             </div>
@@ -152,7 +156,7 @@ const BookDetails = () => {
                         <Image src={book.coverUrl || book.cover || "/placeholder.jpg"} alt={book.title} fill priority sizes="280px" className="object-cover" />
                         {book.isPurchased && (
                             <div className="absolute top-4 right-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-[10px] font-black shadow-lg">
-                                مـمـلوك
+                                {t("book_page.owned")}
                             </div>
                         )}
                     </div>
@@ -160,8 +164,8 @@ const BookDetails = () => {
 
                 <div className="md:w-1/2 flex flex-col">
                     <div className="flex items-center gap-2 mb-3 text-[9px] font-bold uppercase">
-                        <span className="px-2 py-0.5 bg-sky-50 text-sky-800 rounded-md">{book.category?.name || "عام"}</span>
-                        <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-md">{book.productType?.name || "كتاب"}</span>
+                        <span className="px-2 py-0.5 bg-sky-50 text-sky-800 rounded-md">{book.category?.name || t("book_page.general")}</span>
+                        <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-md">{book.productType?.name || t("book_page.book")}</span>
                     </div>
 
                     <h2 className="text-2xl font-extrabold text-gray-950 mb-3 leading-tight">{book.title}</h2>
@@ -170,16 +174,16 @@ const BookDetails = () => {
                         <div className="flex items-baseline gap-1">
                            <span className={`text-3xl font-black ${isPaidAndNotOwned ? 'text-sky-900' : 'text-emerald-600'}`}>
                                 {!isPaidAndNotOwned 
-                                    ? (book.isPurchased ? "أنت تمتلكه" : "مـجـانـي") 
+                                    ? (book.isPurchased ? t("book_page.you_own_it") : t("book_page.free")) 
                                     : (book.isOnSale ? book.discountPrice : book.price).toLocaleString()
                                 }
                             </span>
-                            {isPaidAndNotOwned && <span className="text-sky-900 font-bold text-xs">جنيه مصري</span>}
+                            {isPaidAndNotOwned && <span className="text-sky-900 font-bold text-xs">{t("book_page.currency_full")}</span>}
                         </div>
                     </div>
 
                     <div className="p-4 bg-gray-50 rounded-2xl mb-6 border border-gray-100">
-                        <h3 className="font-bold text-sky-900 mb-2 flex items-center gap-2 text-[11px] uppercase"><Info size={12} /> نبذة</h3>
+                        <h3 className="font-bold text-sky-900 mb-2 flex items-center gap-2 text-[11px] uppercase"><Info size={12} /> {t("book_page.summary")}</h3>
                         <p className="text-gray-600 leading-relaxed text-xs md:text-sm">{book.description}</p>
                     </div>
 
@@ -192,7 +196,7 @@ const BookDetails = () => {
                             {processing ? <div className="animate-spin w-4 h-4 border-2 border-white/20 border-t-white rounded-full"></div> :
                                 <>
                                     {isPaidAndNotOwned ? <ShoppingCart size={18} /> : <Download size={18} />} 
-                                    {isPaidAndNotOwned ? "شراء الآن" : "تحميل الكتاب"}
+                                    {isPaidAndNotOwned ? t("book_page.buy_now") : t("book_page.download_book")}
                                 </>
                             }
                         </button>
@@ -202,7 +206,7 @@ const BookDetails = () => {
                             disabled={book.isPurchased}
                             className={`font-bold py-3.5 rounded-xl border-2 text-sm transition-all ${book.isPurchased ? "border-gray-200 text-gray-400 cursor-not-allowed" : "border-sky-900 text-sky-900 hover:bg-sky-50"}`}
                         >
-                            {book.isPurchased ? "في مكتبتك" : "أضف للسلة"}
+                            {book.isPurchased ? t("book_page.in_your_library") : t("book_page.add_to_cart")}
                         </button>
                     </div>
                 </div>
@@ -216,41 +220,41 @@ const BookDetails = () => {
                         {clientSecret && paymentProvider === 'stripe' ? (
                             <Elements stripe={stripePromise} options={{ clientSecret }}>
                                 <div className="flex flex-col">
-                                    <h2 className="text-lg font-bold text-gray-950 mb-4 text-center">بيانات البطاقة</h2>
+                                    <h2 className="text-lg font-bold text-gray-950 mb-4 text-center">{t("book_page.card_details")}</h2>
                                    <CheckoutForm clientSecret={clientSecret} redirectionUrl={redirectionUrl} />
-                                    <button onClick={() => setClientSecret("")} className="mt-6 text-gray-400 text-xs font-bold pb-4">رجوع للوسائل</button>
+                                    <button onClick={() => setClientSecret("")} className="mt-6 text-gray-400 text-xs font-bold pb-4">{t("book_page.back_to_methods")}</button>
                                 </div>
                             </Elements>
                         ) : (
                             <div className="flex flex-col items-center text-center">
                                 <div className="w-12 h-12 bg-sky-50 text-sky-900 rounded-xl flex items-center justify-center mb-4"><Lock size={24} /></div>
-                                <h2 className="text-xl font-bold text-gray-950 mb-6">إتمام الدفع</h2>
+                                <h2 className="text-xl font-bold text-gray-950 mb-6">{t("book_page.complete_payment")}</h2>
 
                                 <div className="w-full space-y-2 mb-6 text-right">
                                     <button onClick={() => { setPaymentProvider("paymob"); setPaymentMethod("wallet"); }} className={`w-full flex items-center justify-between p-4 rounded-xl border-2 ${paymentProvider === 'paymob' && paymentMethod === 'wallet' ? 'border-sky-900 bg-sky-50' : 'border-gray-100'}`}>
-                                        <div className="flex items-center gap-3"><Smartphone size={18} /><span className="font-bold text-xs">محفظة إلكترونية (فون كاش)</span></div>
+                                        <div className="flex items-center gap-3"><Smartphone size={18} /><span className="font-bold text-xs">{t("book_page.wallet_option")}</span></div>
                                         {paymentProvider === 'paymob' && paymentMethod === 'wallet' && <CheckCircle className="text-sky-900" size={16} fill="currentColor" />}
                                     </button>
                                     <button onClick={() => { setPaymentProvider("paymob"); setPaymentMethod("card"); }} className={`w-full flex items-center justify-between p-4 rounded-xl border-2 ${paymentProvider === 'paymob' && paymentMethod === 'card' ? 'border-sky-900 bg-sky-50' : 'border-gray-100'}`}>
-                                        <div className="flex items-center gap-3"><CreditCard size={18} /><span className="font-bold text-xs">بطاقة افتراضية (باي موب)</span></div>
+                                        <div className="flex items-center gap-3"><CreditCard size={18} /><span className="font-bold text-xs">{t("book_page.paymob_card_option")}</span></div>
                                         {paymentProvider === 'paymob' && paymentMethod === 'card' && <CheckCircle className="text-sky-900" size={16} fill="currentColor" />}
                                     </button>
                                     <button onClick={() => { setPaymentProvider("stripe"); setPaymentMethod("card"); }} className={`w-full flex items-center justify-between p-4 rounded-xl border-2 ${paymentProvider === 'stripe' ? 'border-sky-900 bg-sky-50' : 'border-gray-100'}`}>
-                                        <div className="flex items-center gap-3"><CreditCard size={18} /><span className="font-bold text-xs">بطاقة بنكية (Stripe)</span></div>
+                                        <div className="flex items-center gap-3"><CreditCard size={18} /><span className="font-bold text-xs">{t("book_page.stripe_card_option")}</span></div>
                                         {paymentProvider === 'stripe' && <CheckCircle className="text-sky-900" size={16} fill="currentColor" />}
                                     </button>
                                 </div>
 
                                 {paymentProvider === 'paymob' && paymentMethod === 'wallet' && (
                                     <div className="w-full mb-6 text-right">
-                                        <input type="tel" placeholder="رقم المحفظة" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full bg-gray-50 border border-gray-100 p-3 rounded-xl text-center font-bold outline-none" />
+                                        <input type="tel" placeholder={t("book_page.wallet_phone_placeholder")} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full bg-gray-50 border border-gray-100 p-3 rounded-xl text-center font-bold outline-none" />
                                     </div>
                                 )}
 
                                 <button onClick={startPayment} disabled={processing} className="w-full py-3.5 bg-sky-900 text-white rounded-xl font-bold hover:bg-sky-800 disabled:bg-gray-300 transition-all">
-                                    {processing ? "جاري المعالجة..." : "تأكيد ودفع"}
+                                    {processing ? t("book_page.processing") : t("book_page.confirm_pay")}
                                 </button>
-                                <button onClick={() => setPaymentModal(false)} className="mt-4 text-gray-400 font-bold text-xs">إلغاء</button>
+                                <button onClick={() => setPaymentModal(false)} className="mt-4 text-gray-400 font-bold text-xs">{t("book_page.cancel")}</button>
                             </div>
                         )}
                     </div>

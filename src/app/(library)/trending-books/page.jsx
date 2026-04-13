@@ -9,11 +9,15 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
 import { useFavoritesStore } from "@/app/(library)/store/useFavoritesStore";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const TrendingPage = () => {
     const router = useRouter();
+    const { t, i18n } = useTranslation();
     const { isAuthenticated } = useAuthStore();
     const { isFavorite, addToFavorites, removeFromFavorites } = useFavoritesStore();
+    const isArabic = i18n.language?.startsWith("ar");
+    const dir = isArabic ? "rtl" : "ltr";
 
     const { data: books = [], isLoading } = useQuery({
         queryKey: ["trending-books-page"],
@@ -28,7 +32,7 @@ const TrendingPage = () => {
         e.preventDefault();
         e.stopPropagation();
         if (!isAuthenticated) {
-            toast.info("سجّل الدخول لإضافة المفضلة");
+            toast.info(t("trending_page.login_for_favorites"));
             return router.push("/login");
         }
 
@@ -39,16 +43,16 @@ const TrendingPage = () => {
         }
     };
 
-    if (isLoading) return <div className="py-24 text-center text-amber-600 font-black animate-bounce text-xl tracking-widest uppercase">جاري التحميل...</div>;
+    if (isLoading) return <div className="py-24 text-center text-amber-600 font-black animate-bounce text-xl tracking-widest uppercase">{t("trending_page.loading")}</div>;
 
     return (
-        <main className="min-h-screen bg-slate-50/50 py-16 px-4 text-right">
+        <main className={`min-h-screen bg-slate-50/50 py-16 px-4 ${isArabic ? "text-right" : "text-left"}`} dir={dir}>
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col items-center mb-16 text-center">
                     <div className="p-3 bg-amber-100 rounded-2xl text-amber-600 mb-4 shadow-inner">
                         <Flame size={32} fill="currentColor" />
                     </div>
-                    <h1 className="text-4xl font-black text-sky-950 uppercase tracking-tighter">الأكثر طلباً الآن</h1>
+                    <h1 className="text-4xl font-black text-sky-950 uppercase tracking-tighter">{t("trending_page.title")}</h1>
                     <div className="w-12 h-1 bg-amber-600 mt-4 rounded-full"></div>
                 </div>
 
@@ -86,7 +90,7 @@ const TrendingPage = () => {
                                         {book.title}
                                     </h3>
                                     <div className="mt-3 inline-block">
-                                        <span className="text-[9px] font-black text-amber-600 bg-amber-50 px-3 py-1 rounded-full uppercase border border-amber-100">HOT NOW</span>
+                                        <span className="text-[9px] font-black text-amber-600 bg-amber-50 px-3 py-1 rounded-full uppercase border border-amber-100">{t("trending_page.hot_now")}</span>
                                     </div>
                                 </div>
                             </Link>

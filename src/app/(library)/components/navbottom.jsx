@@ -5,13 +5,14 @@ import { useRouter, usePathname } from "next/navigation";
 import Home from "lucide-react/dist/esm/icons/home";
 import ShoppingCart from "lucide-react/dist/esm/icons/shopping-cart";
 import User from "lucide-react/dist/esm/icons/user";
-import Info from "lucide-react/dist/esm/icons/info";
 import Phone from "lucide-react/dist/esm/icons/phone";
-
+import BookOpen from "lucide-react/dist/esm/icons/book-open";
 import { useAuthStore } from "@/app/(library)/store/useAuthStore";
 import { useCartStore } from "@/app/(library)/store/useCartStore";
+import { useTranslation } from "react-i18next";
 
 const NavBottom = () => {
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const pathname = usePathname();
   const { isAuthenticated, logout } = useAuthStore();
@@ -19,7 +20,7 @@ const NavBottom = () => {
   const cartItemsCount = isAuthenticated ? (cart?.items?.length || 0) : 0;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center h-16 z-50 px-2" dir="rtl">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around items-center h-16 z-50 px-2" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
 
       {/* الرئيسية */}
       <div
@@ -27,7 +28,7 @@ const NavBottom = () => {
         className={`flex flex-col items-center cursor-pointer ${pathname === '/' ? 'text-amber-600' : 'text-gray-400'}`}
       >
         <Home size={24} strokeWidth={pathname === '/' ? 2.5 : 2} />
-        <span className={`text-[10px] mt-1 ${pathname === '/' ? 'font-bold' : ''}`}>الرئيسية</span>
+        <span className={`text-[10px] mt-1 ${pathname === '/' ? 'font-bold' : ''}`}>{t('navbar.home')}</span>
       </div>
 
       {/* تواصل معنا */}
@@ -36,7 +37,7 @@ const NavBottom = () => {
         className={`flex flex-col items-center cursor-pointer ${pathname === '/contact' ? 'text-amber-600' : 'text-gray-400'}`}
       >
         <Phone size={24} strokeWidth={pathname === '/contact' ? 2.5 : 2} />
-        <span className={`text-[10px] mt-1 ${pathname === '/contact' ? 'font-bold' : ''}`}>تواصل معنا</span>
+        <span className={`text-[10px] mt-1 ${pathname === '/contact' ? 'font-bold' : ''}`}>{t('navbar.contact')}</span>
       </div>
 
       {/* زر السلة */}
@@ -55,17 +56,16 @@ const NavBottom = () => {
           )}
         </div>
         <span className={`text-[10px] mt-1 ${pathname === '/cart' ? 'text-amber-600 font-bold' : 'text-gray-400'}`}>
-          السلة
+          {t('navbar.cart')}
         </span>
       </div>
 
-      {/* عن الموقع */}
-      <div
-        onClick={() => router.push('/about')}
-        className={`flex flex-col items-center cursor-pointer ${pathname === '/about' ? 'text-amber-600' : 'text-gray-400'}`}
+     <div
+        onClick={() => router.push('/my-purchases')}
+        className={`flex flex-col items-center cursor-pointer ${pathname === '/my-purchases' ? 'text-amber-600' : 'text-gray-400'}`}
       >
-        <Info size={24} strokeWidth={pathname === '/about' ? 2.5 : 2} />
-        <span className={`text-[10px] mt-1 ${pathname === '/about' ? 'font-bold' : ''}`}>عن الموقع</span>
+        <BookOpen size={24} strokeWidth={pathname === '/my-purchases' ? 2.5 : 2} />
+        <span className={`text-[10px] mt-1 ${pathname === '/my-purchases' ? 'font-bold' : ''}`}>{t('navbar.my_purchases')}</span>
       </div>
 
       {/* الحساب / تسجيل خروج */}
@@ -75,7 +75,7 @@ const NavBottom = () => {
           className="flex flex-col items-center cursor-pointer text-gray-400 hover:text-amber-600"
         >
           <User size={24} />
-          <span className="text-[10px] mt-1 font-bold">تسجيل خروج</span>
+          <span className="text-[10px] mt-1 font-bold">{t('navbar.logout')}</span>
         </div>
       ) : (
         <div
@@ -83,7 +83,7 @@ const NavBottom = () => {
           className={`flex flex-col items-center cursor-pointer ${pathname === '/register' ? 'text-amber-600' : 'text-gray-400'}`}
         >
           <User size={24} />
-          <span className={`text-[10px] mt-1 ${pathname === '/register' ? 'font-bold' : ''}`}>إنشاء حساب</span>
+          <span className={`text-[10px] mt-1 ${pathname === '/register' ? 'font-bold' : ''}`}>{t('navbar.register')}</span>
         </div>
       )}
 

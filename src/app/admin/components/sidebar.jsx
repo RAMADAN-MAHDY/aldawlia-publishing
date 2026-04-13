@@ -21,7 +21,7 @@ export default function AdminSidebar({ disabled, isOpen, setIsOpen }) {
     const navLinks = [
         { name: "الرئيسية", href: "/admin", icon: LayoutDashboard, color: "#ef4444" },
         { name: "الكتب والإصدارات", href: "/admin/books", icon: PackageSearch, color: "#3b82f6" },
-        { name: "المجالات الرئيسية", href: "/admin/categories", icon: Tags, color: "#22c55e" },
+        { name: "الأقسام الرئيسية", href: "/admin/categories", icon: Tags, color: "#22c55e" },
         { name: "أنواع المنتجات", href: "/admin/types", icon: Tags, color: "#a855f7" },
         { name: "المدفوعات", href: "/admin/orders", icon: Package, color: "#f97316" },
         { name: "إعدادات الموقع", href: "/admin/socialSettings", icon: Settings, color: "#f59e0b" }, // ✅ الأيقونة الآن معرفة

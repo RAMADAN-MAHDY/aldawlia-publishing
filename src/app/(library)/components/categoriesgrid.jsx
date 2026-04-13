@@ -1,14 +1,17 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image'; // أضفنا ده
+import Image from 'next/image';
 import PageLoader from '@/app/loading';
 import api from '@/app/api';
+import { useTranslation } from 'react-i18next';
 
 const CategoryGrid = () => {
+  const { t, i18n } = useTranslation();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const isAr = i18n.language === 'ar';
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -18,20 +21,20 @@ const CategoryGrid = () => {
         setLoading(false);
       } catch (err) {
         console.error('Error fetching categories:', err);
-        setError('حصل خطأ أثناء تحميل البيانات');
+        setError(t('home.category_grid.error'));
         setLoading(false);
       }
     };
     fetchCategories();
-  }, []);
+  }, [t]);
 
   if (loading) return <PageLoader />;
   if (error) return <div className="text-center text-red-500 mt-6">{error}</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6 mb-20" dir="rtl">
-      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800">
-        تصنيفات المتجر
+    <div className={`max-w-7xl mx-auto px-4 py-4 mb-10 ${isAr ? 'text-right' : 'text-left'}`} dir={isAr ? 'rtl' : 'ltr'}>
+      <h2 className="text-2xl md:text-3xl font-bold mb-8 text-blue-800">
+        {t('home.category_grid.title')}
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
@@ -44,7 +47,6 @@ const CategoryGrid = () => {
             key={category._id}
             className="relative h-64 md:h-80 overflow-hidden rounded-2xl shadow-lg group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
           >
-            {/* التعديل: استخدام Image المحسن بدلاً من img العادية */}
             <Image
               src={category.coverUrl || category.coverImageKey || category.image || "/placeholder.jpg"}
               alt={category.name}
@@ -59,7 +61,7 @@ const CategoryGrid = () => {
                 {category.name}
               </span>
               <p className="text-white text-[10px] md:text-xs mt-1 text-center opacity-80 line-clamp-2">
-                {"تصفح المنتجات في هذا القسم"}
+                {t('home.category_grid.browse')}
               </p>
             </div>
 
